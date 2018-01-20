@@ -1,6 +1,6 @@
 package test.java.trees.bst.balanced;
 
-import main.java.trees.bst.balanced.AVLTree;
+import main.java.ds.trees.bst.balanced.AVLTree;
 import org.junit.Test;
 import test.java.DataGenerator;
 

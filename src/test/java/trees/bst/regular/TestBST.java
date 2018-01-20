@@ -1,6 +1,6 @@
 package test.java.trees.bst.regular;
 
-import main.java.trees.bst.regular.BinarySearchTree;
+import main.java.ds.trees.bst.regular.BinarySearchTree;
 import org.junit.Test;
 import test.java.DataGenerator;
 

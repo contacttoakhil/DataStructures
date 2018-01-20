@@ -1,8 +1,5 @@
 package test.java;
 
-import main.java.graph.AdjMatrixGraph;
-import main.java.graph.IGraph;
-
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -70,4 +67,38 @@ public class DataGenerator {
         }
         return edges;
     }
+
+    /**
+     * Generates random alphabetic strings of length {@code length}
+     * @param count - number of strings needed
+     * @param length - length of each string
+     * @return array of random strings
+     */
+    public static  String[] generateAlphabeticStrings(int count, int length) {
+        return generateRandomStrings(count, length, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    }
+
+    /**
+     * Generates random alpha-numeric strings of length {@code length}
+     * @param count - number of strings needed
+     * @param length - length of each string
+     * @return array of random strings
+     */
+    public static  String[] generateAlphaNumericStrings(int count, int length) {
+        return generateRandomStrings(count, length, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    }
+
+    private static  String[] generateRandomStrings(int count, int length, String seedData) {
+        String[] strings = new String[count];
+        StringBuilder sb = new StringBuilder(length);
+        for(int i=0; i< count; i++) {
+            sb.setLength(0);
+            for (int j = 0; j < length; j++) {
+                sb.append(seedData.charAt(RANDOM.nextInt(seedData.length())));
+            }
+            strings[i] = sb.toString();
+        }
+        return strings;
+    }
+
 }

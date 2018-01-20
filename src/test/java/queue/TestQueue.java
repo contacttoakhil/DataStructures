@@ -1,8 +1,8 @@
 package test.java.queue;
 
-import main.java.queue.ArrayQueue;
-import main.java.queue.IQueue;
-import main.java.queue.LinkedQueue;
+import main.java.ds.queue.ArrayQueue;
+import main.java.ds.queue.IQueue;
+import main.java.ds.queue.LinkedQueue;
 import org.junit.Test;
 import test.java.DataGenerator;
 

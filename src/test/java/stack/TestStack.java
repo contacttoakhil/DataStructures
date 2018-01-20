@@ -2,9 +2,9 @@ package test.java.stack;
 
 import static org.junit.Assert.assertTrue;
 
-import main.java.stack.ArrayStack;
-import main.java.stack.IStack;
-import main.java.stack.LinkedStack;
+import main.java.ds.stack.ArrayStack;
+import main.java.ds.stack.IStack;
+import main.java.ds.stack.LinkedStack;
 import org.junit.Test;
 import test.java.DataGenerator;
 
