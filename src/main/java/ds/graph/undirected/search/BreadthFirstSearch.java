@@ -1,12 +1,9 @@
 package main.java.ds.graph.undirected.search;
 
+import main.java.ds.graph.GraphUtils;
 import main.java.ds.graph.undirected.IUndirectedGraph;
 import main.java.ds.queue.ArrayQueue;
 import main.java.ds.queue.IQueue;
-import main.java.ds.stack.ArrayStack;
-import main.java.ds.stack.IStack;
-
-import java.util.Arrays;
 
 /***
  * Breadth First Search works similar to level order traversal of the tree and makes use of queue. When adjacency list is used time complexity is O(V+E) and when adjacency matrix is used we get quadratic time complexity of O(V^2).
@@ -56,10 +53,7 @@ public class BreadthFirstSearch {
      * @param source source of graph.
      */
     private int[] initializePathLength(int vertexCount, int source) {
-        int[] array = new int[vertexCount];
-        Arrays.fill(array, Integer.MAX_VALUE);
-        array[source] = 0;
-        return array;
+        return GraphUtils.initializePathLengthForIntArray(vertexCount, source);
     }
 
     /**
@@ -67,11 +61,6 @@ public class BreadthFirstSearch {
      * @param v - the target vertex
      */
     public void printPath(int v) {
-        IStack<Integer> path = new ArrayStack<>();
-        int i;
-        for (i = v; pathLength[i] != 0; i = prevEdge[i])
-            path.push(i);
-        path.push(i);
-        path.print("->");
+        GraphUtils.printPath(v, pathLength, prevEdge);
     }
 }

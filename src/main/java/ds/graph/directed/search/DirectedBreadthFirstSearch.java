@@ -1,12 +1,9 @@
 package main.java.ds.graph.directed.search;
 
+import main.java.ds.graph.GraphUtils;
 import main.java.ds.graph.directed.IDirectedGraph;
 import main.java.ds.queue.ArrayQueue;
 import main.java.ds.queue.IQueue;
-import main.java.ds.stack.ArrayStack;
-import main.java.ds.stack.IStack;
-
-import java.util.Arrays;
 
 /**
  * This is similar to BreadthFirstSearch class with the only exception that it works for Directed Graph. We can think of BFS as Dijkstra's algorithm where each edge has a weight of 1. As each edge has weight of 1 we can think of priority queue as a queue as
@@ -55,10 +52,7 @@ public class DirectedBreadthFirstSearch {
      * @param source source of graph.
      */
     private int[] initializePathLength(int vertexCount, int source) {
-        int[] array = new int[vertexCount];
-        Arrays.fill(array, Integer.MAX_VALUE);
-        array[source] = 0;
-        return array;
+        return GraphUtils.initializePathLengthForIntArray(vertexCount, source);
     }
 
     /**
@@ -66,11 +60,6 @@ public class DirectedBreadthFirstSearch {
      * @param v - the target vertex
      */
     public void printPath(int v) {
-        IStack<Integer> path = new ArrayStack<>();
-        int i;
-        for (i = v; pathLength[i] != 0; i = prevEdge[i])
-            path.push(i);
-        path.push(i);
-        path.print("->");
+        GraphUtils.printPath(v, pathLength, prevEdge);
     }
 }

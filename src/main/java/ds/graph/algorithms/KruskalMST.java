@@ -1,5 +1,6 @@
 package main.java.ds.graph.algorithms;
 
+import main.java.ds.graph.GraphUtils;
 import main.java.ds.graph.undirected.weighted.UndirectedEdge;
 import main.java.ds.graph.undirected.IUndirectedGraph;
 import main.java.ds.heap.MinPriorityQueue;

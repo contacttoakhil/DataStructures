@@ -91,18 +91,19 @@ public class ArrayStack<E> implements IStack<E>
 
         ArrayStackIterator(ArrayStack<E> arrayStack) {
             this.stack = arrayStack;
+            index = arrayStack.size - 1;
         }
 
         @Override
         public boolean hasNext() {
-            return (index+1 <= stack.size);
+            return index >= 0;
         }
 
         @Override
         public E next() {
-            if(!hasNext())
-                throw new NoSuchElementException();
-            return stack.array[index++];
+            if (!hasNext()) throw new NoSuchElementException();
+            return stack.array[index--];
         }
+
     }
 }

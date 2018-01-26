@@ -1,5 +1,6 @@
 package main.java.ds.graph.algorithms;
 
+import main.java.ds.graph.GraphUtils;
 import main.java.ds.graph.undirected.weighted.UndirectedEdge;
 import main.java.ds.graph.undirected.IUndirectedGraph;
 import main.java.ds.heap.IndexMinPriorityQueue;
@@ -59,12 +60,17 @@ public class PrimMST {
             if(edge.weight() < pathLength[other]) {
                 pathLength[other] = edge.weight();
                 prevEdge[other] = edge;
-                if(priorityQueue.contains(other))   priorityQueue.decreaseKey(other, pathLength[other]);
-                else    priorityQueue.insert(other, pathLength[other]);
+                updatePathLength(other, pathLength[other]);
             }
         }
     }
 
+    private void updatePathLength(int index, double newKey) {
+        if(priorityQueue.contains(index))
+            priorityQueue.decreaseKey(index, newKey);
+        else
+            priorityQueue.insert(index, newKey);
+    }
     /**
      * Returns the edges in a minimum spanning tree (or forest).
      * @return the edges in a minimum spanning tree (or forest) as an iterable of edges

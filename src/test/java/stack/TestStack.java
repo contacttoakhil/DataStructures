@@ -26,6 +26,15 @@ public class TestStack {
         testStack(new LinkedStack<>(),sampleData);
     }
 
+    @Test
+    public void testStackBasic()
+    {
+        IStack<Integer> stack = new ArrayStack<>();
+        stack.push(10); stack.push(20); stack.push(30); stack.push(40); stack.push(50);
+        for (Integer e : stack) {
+            System.out.println(e);
+        }
+    }
     private static <E extends Comparable<E>> void testStack(IStack<E> stack, E[] sampleData)
     {
         assertTrue(ensurePush(stack, sampleData, 0, sampleData.length));

@@ -46,7 +46,7 @@ public class AdjListGraph implements IUndirectedGraph {
 
     @Override
     public String toString() {
-        return "Adjacency List Graph: " + printMe();
+        return "Adjacency List Directed Graph: " + printMe();
     }
 
     @Override

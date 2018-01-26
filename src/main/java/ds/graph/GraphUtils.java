@@ -1,10 +1,12 @@
-package main.java.ds.graph.algorithms;
+package main.java.ds.graph;
 
 import main.java.ds.graph.directed.IDirectedGraph;
 import main.java.ds.graph.directed.weighted.DirectedEdge;
 import main.java.ds.graph.undirected.IUndirectedGraph;
 import main.java.ds.graph.undirected.weighted.UndirectedEdge;
 import main.java.ds.set.DisjointSet;
+import main.java.ds.stack.ArrayStack;
+import main.java.ds.stack.IStack;
 
 import java.util.Arrays;
 
@@ -52,6 +54,31 @@ public class GraphUtils {
         Arrays.fill(array, Double.POSITIVE_INFINITY);
         array[source] = 0.0;
         return array;
+    }
+
+    /**
+     * Initialize path-length for every vertex in graph to infinity and initialize path length of {@code source} to zero.
+     * @param vertexCount number of vertices in the graph.
+     * @param source source of graph.
+     */
+    public static int[] initializePathLengthForIntArray(int vertexCount, int source) {
+        int[] array = new int[vertexCount];
+        Arrays.fill(array, Integer.MAX_VALUE);
+        array[source] = 0;
+        return array;
+    }
+
+    /**
+     * Print the shortest path from source to this vertex {@code v}
+     * @param v - the target vertex
+     */
+    public static void printPath(int v, int[] pathLength, int[] prevEdge) {
+        IStack<Integer> path = new ArrayStack<>();
+        int i;
+        for (i = v; pathLength[i] != 0; i = prevEdge[i])
+            path.push(i);
+        path.push(i);
+        path.print("->");
     }
 
     /*********************  private methods for SPT *************************************************************/

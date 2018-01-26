@@ -12,7 +12,6 @@ public interface IDirectedGraph {
      */
     int getEdgeCount();
 
-
     /**
      * Returns the count of vertices in this directed graph
      * @return the count of vertices
@@ -27,6 +26,33 @@ public interface IDirectedGraph {
      * @throws IllegalArgumentException unless {@code 0 <= v < vertexCount}
      */
     Iterable<Integer> adjacentVertices(int i);
+
+    /**
+     * Adds a directed edge from {@code i}to {@code j} in the graph.
+     * @param i from endpoint of edge
+     * @param j to endpoint of edge
+     */
+    void addEdge(int i, int j);
+
+    /**
+     * Returns the number of directed edges incident from vertex {@code i}.
+     * This is known as the <em>outdegree</em> of vertex {@code i}.
+     *
+     * @param  i the vertex
+     * @return the outdegree of vertex {@code i}
+     * @throws IllegalArgumentException unless {@code i} is valid
+     */
+    int outdegree(int i);
+
+    /**
+     * Returns the number of directed edges incident to vertex {@code i}.
+     * This is known as the <em>indegree</em> of vertex {@code i}.
+     *
+     * @param  i the vertex
+     * @return the indegree of vertex {@code i}
+     * @throws IllegalArgumentException unless {@code i} is valid.
+     */
+    public int indegree(int i);
 
     /**
      * Adds the directed edge {@code directedEdge} to this directed graph.
@@ -57,14 +83,7 @@ public interface IDirectedGraph {
         throw new UnsupportedOperationException("edges");
     }
 
-    /**
-     * Adds a directed edge from {@code i}to {@code j} in the graph.
-     * @param i from endpoint of edge
-     * @param j to endpoint of edge
-     */
-    default void addEdge(int i, int j) {
-        throw new UnsupportedOperationException("addEdge");
-    }
+
 
     /**
      * Validates the vertex

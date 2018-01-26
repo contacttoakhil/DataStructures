@@ -21,7 +21,7 @@ public class EdgeWeightedDirectedGraph implements IDirectedGraph {
         }
     }
 
-    public EdgeWeightedDirectedGraph(int vertexCount, DirectedEdge[] directedEdges) {
+    public EdgeWeightedDirectedGraph(int vertexCount, List<DirectedEdge> directedEdges) {
         this(vertexCount);
         for(DirectedEdge directedEdge : directedEdges) {
             addEdge(directedEdge);
@@ -41,6 +41,18 @@ public class EdgeWeightedDirectedGraph implements IDirectedGraph {
     @Override
     public void addEdge(int i, int j) {
         addEdge(new DirectedEdge(i,j));
+    }
+
+    @Override
+    public int outdegree(int i) {
+        validateVertex(i);
+        return adjacencyListArray[i].size();
+    }
+
+    @Override
+    public int indegree(int i) {
+        validateVertex(i);
+        return indegree[i];
     }
 
     public int outDegree(int i) {
