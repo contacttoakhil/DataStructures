@@ -40,7 +40,7 @@ public class LowestCommonAncestor<T extends Comparable<T>> {
      * @param two item at node two
      * @return lca of two nodes
      */
-    public BinarySearchTreeNode<T> leastCommonAncestorForBST(BinarySearchTreeNode<T> node, T one, T two) {
+    private BinarySearchTreeNode<T> leastCommonAncestorForBST(BinarySearchTreeNode<T> node, T one, T two) {
         if( node == null ) return null;
         if( node.getData().compareTo(one)>0 && node.getData().compareTo(two)>0 )
             return leastCommonAncestorForBST((BinarySearchTreeNode<T>) node.getLeft(), one, two);
