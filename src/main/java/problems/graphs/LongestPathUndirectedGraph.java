@@ -19,7 +19,7 @@ import java.util.List;
 
  For this example longest cable is 11 for (3)->(4).
 
- Idea is to find longest cable (lc) needed for each vertex (source) and then find the maximum of the lc.
+ Idea is to findSubset longest cable (lc) needed for each vertex (source) and then findSubset the maximum of the lc.
 
  Ref - https://www.geeksforgeeks.org/longest-path-between-any-pair-of-vertices/
  */

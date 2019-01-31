@@ -3,7 +3,7 @@ package main.java.ds.set;
 import java.util.stream.IntStream;
 
 /**
- * A disjoint-set data structure (also called a union–find data structure or merge–find set) is a data structure that keeps track of a set of elements partitioned into a number of disjoint (non-overlapping) subsets. It provides near-constant-time operations
+ * A disjoint-set data structure (also called a union–findSubset data structure or merge–findSubset set) is a data structure that keeps track of a set of elements partitioned into a number of disjoint (non-overlapping) subsets. It provides near-constant-time operations
  * to add new sets, to merge existing sets, and to determine whether elements are in the same set. The disjoint-sets play a key role in Kruskal's algorithm for finding the minimum spanning tree of a graph.
  *
  * https://en.wikipedia.org/wiki/Disjoint-set_data_structure

@@ -15,14 +15,22 @@ public class KruskalMST {
     private IQueue<UndirectedEdge> mst = new ArrayQueue<>(); //mst is minimum spanning tree and will contain those edges
     private double weightOfMST;
 
+    private DisjointSet disjointSet;
+    private MinPriorityQueue<UndirectedEdge> pq;
+
     public KruskalMST(IUndirectedGraph undirectedGraph) {
-        MinPriorityQueue<UndirectedEdge> pq = new MinPriorityQueue<>();
+        this.pq = new MinPriorityQueue<>();
+        this.disjointSet = new DisjointSet(undirectedGraph.getVertexCount());
         for (UndirectedEdge e : undirectedGraph.edges()) {
             pq.insert(e);
         }
+        compute(undirectedGraph.getVertexCount());
+        validate(undirectedGraph);
+    }
 
-        DisjointSet disjointSet = new DisjointSet(undirectedGraph.getVertexCount());
-        while(!pq.isEmpty() && mst.size()<undirectedGraph.getVertexCount()-1) {
+    private void compute(int vc) {
+        boolean mstNotReady = mst.size()<vc-1;
+        while(!pq.isEmpty() && mstNotReady) {
             UndirectedEdge edge = pq.deleteMin();
             int either = edge.either();
             int other = edge.other(either);
@@ -32,9 +40,7 @@ public class KruskalMST {
                 weightOfMST = weightOfMST + edge.weight();
             }
         }
-        validate(undirectedGraph);
     }
-
     /**
      * Returns the edges in a minimum spanning tree (or forest).
      * @return the edges in a minimum spanning tree (or forest) as
