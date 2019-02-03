@@ -62,11 +62,4 @@ public class LC17MobilePhoneDigitWordCombinations {
 
 // Max 4 possible values for a digit and for string having n digits the time complexity would be O(4^n).
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// https://www.programcreek.com/2014/04/leetcode-letter-combinations-of-a-phone-number-java/
-// https://stackoverflow.com/questions/2344496/how-can-i-print-out-all-possible-letter-combinations-a-given-phone-number-can-re
-// https://www.topcoder.com/community/competitive-programming/tutorials/basics-of-combinatorics/
-//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
