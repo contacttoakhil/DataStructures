@@ -7,7 +7,22 @@ import java.util.stream.Collectors;
 
 /**
  * Leet Code 46: https://leetcode.com/problems/permutations/description/
- * https://www.programcreek.com/2013/02/leetcode-permutations-java/
+ *
+ * Given a collection of distinct integers, return all possible permutations.
+ *
+ * Example:
+ *
+ * Input: [1,2,3]
+ * Output:
+ * [
+ *   [1,2,3],
+ *   [1,3,2],
+ *   [2,1,3],
+ *   [2,3,1],
+ *   [3,1,2],
+ *   [3,2,1]
+ * ]
+ *
  */
 public class LC46PermutationsForInputArrayUsingSwap {
 
