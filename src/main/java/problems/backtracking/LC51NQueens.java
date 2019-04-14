@@ -29,7 +29,7 @@ public class LC51NQueens {
         int i, j;
         int numOfRows = board.length;
 
-        for (i = 0; i < column; i++)  // verify row on left
+        for (i = 0; i < column; i++)  // For this row, verify all cols on left (as we are iterating over rows (in solve method) to keep one queen in a row).
             if (board[row][i])
                 return false;
 

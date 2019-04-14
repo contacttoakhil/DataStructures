@@ -5,20 +5,45 @@ import java.util.Arrays;
 import java.util.List;
 
 // Also check : Subsets
+
+/***
+ * Given a set of distinct integers, nums, return all possible subsets (the power set).
+ *
+ * Note: The solution set must not contain duplicate subsets.
+ *
+ * Example:
+ *
+ * Input: nums = [1,2,3]
+ * Output:
+ * [
+ *   [3],
+ *   [1],
+ *   [2],
+ *   [1,2,3],
+ *   [1,3],
+ *   [2,3],
+ *   [1,2],
+ *   []
+ * ]
+ *
+ * @link https://leetcode.com/problems/subsets/
+ * Also check Subsets
+ */
 public class LC78Subsets {
 
+    List<List<Integer>> result = new ArrayList<>();
+
     public List<List<Integer>> generateSubsets(int[] input) {
-        List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(input);
-        compute(result, new ArrayList<>(), input, 0);
+        compute(new ArrayList<>(), input, 0);
         return result;
     }
 
-    private void compute(List<List<Integer>> result, List<Integer> temp, int[] input, int start) {
-        result.add(new ArrayList<>(temp));
+    private void compute(List<Integer> temp, int[] input, int start) {
+        result.add(new ArrayList<>(temp));  // for subsets of size k we can check temp.length
         for (int i = start; i < input.length; i++) {
             temp.add(input[i]);
-            compute(result, temp, input, i+1);
+            compute(temp, input, i+1);
             temp.remove(temp.size() - 1);
         }
     }
@@ -29,9 +54,3 @@ public class LC78Subsets {
         System.out.println(result);
     }
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// http://javabypatel.blogspot.com/2015/10/all-subsets-of-set-powerset.html <- explanation
-//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////

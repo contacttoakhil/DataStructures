@@ -15,30 +15,28 @@ import java.util.Stack;
  */
 public class LC20ValidParantheses {
 
-    public boolean isValid(String input) {
-        Map<Character,Character> map = getMap();
-        Stack<Character> stack = new Stack();
-        for (char current : input.toCharArray()) {
-            if(map.keySet().contains(current)) {
-                stack.push(current);
-            }
-            else if(map.values().contains(current)
-                    && !stack.isEmpty()
-                    && map.get(stack.peek()) == current ) {
-               stack.pop();
-            }
-            else
-                return false;
-        }
-        return stack.isEmpty();
+    private Map<Character, Character> mappings;
+
+    public LC20ValidParantheses() {
+        this.mappings = new HashMap<Character, Character>();
+        this.mappings.put(')', '(');
+        this.mappings.put('}', '{');
+        this.mappings.put(']', '[');
     }
 
-    private Map<Character,Character> getMap() {
-        Map<Character,Character> map = new HashMap<>();
-        map.put('(', ')');
-        map.put('{', '}');
-        map.put('[', ']');
-        return map;
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        for(char c : s.toCharArray()) {
+            if (this.mappings.containsKey(c)) {    // closing bracket?
+                char topElement = stack.empty() ? '#' : stack.pop();                  // Get the top element of the stack. If the stack is empty, set a dummy value of '#'
+                if (topElement != this.mappings.get(c)) {                             // If the mapping for this bracket doesn't match the stack's top element, return false.
+                    return false;
+                }
+            } else {
+                stack.push(c);          // push opening bracket to stack
+            }
+        }
+        return stack.isEmpty();                         // If the stack still contains elements, then it is an invalid expression.
     }
 
     public static void main(String[] args) {

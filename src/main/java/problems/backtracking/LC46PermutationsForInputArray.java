@@ -21,16 +21,22 @@ import java.util.List;
  *   [3,2,1]
  * ]
  *
+ * {a,b}
+ * Permutation - Order matters - {ab,ba}
+ * Combination - Order doesn't matter and more of choosing k elements out of n - {{},{a},{b},{a,b}}
+ *
+ * Also check Permutations.java
  */
 public class LC46PermutationsForInputArray {
 
+    List<List<Integer>> result = new ArrayList<>();
+
     public List<List<Integer>> generatePermutations(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        compute(result, new ArrayList<>(), nums);
+        compute(new ArrayList<>(), nums);
         return result;
     }
 
-    private void compute (List<List<Integer>> result, List<Integer> temp, int[] input) {
+    private void compute (List<Integer> temp, int[] input) {
         if(temp.size() == input.length) {
             result.add(new ArrayList<>(temp));
             return;
@@ -38,14 +44,13 @@ public class LC46PermutationsForInputArray {
         for (int i = 0; i < input.length; i++) {
             if (temp.contains(input[i])) continue;
             temp.add(input[i]);
-            compute(result, temp, input);
+            compute(temp, input);
             temp.remove(temp.size() - 1);
         }
     }
 
     public static void main(String[] args) {
         LC46PermutationsForInputArray pm = new LC46PermutationsForInputArray();
-        List<List<Integer>> result = pm.generatePermutations(new int[] {1,2,3});
-        System.out.println(result);
+        System.out.println(pm.generatePermutations(new int[] {1,2,3}));
     }
 }

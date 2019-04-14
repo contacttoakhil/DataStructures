@@ -22,36 +22,32 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LC39CombinationSum {
-    public List<List<Integer>> combinationSum(int[] input, int targetSum) {
-        List<List<Integer>> result = new ArrayList<>();
-        if(input.length == 0 || input == null)   return result;
-        Arrays.sort(input); //O(nlgn)
-        compute(result, new ArrayList<>(), input, 0, targetSum); // Common mistake : passing Collections.emptyList() in place of ArrayList
+
+    List<List<Integer>> result = new ArrayList<>();
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        if(candidates.length == 0 || candidates == null)   return result;
+        Arrays.sort(candidates); //O(nlgn)
+        compute(new ArrayList<>(), candidates, 0, target); // Common mistake : passing Collections.emptyList() in place of ArrayList
         return result;
     }
 
-    private void compute(List<List<Integer>> result, List<Integer> temp, int[] input, int start, int remained) {
+    private void compute(List<Integer> temp, int[] candidates, int start, int remained) {
         if(remained == 0) {  // CM : to avoid duplicate combination also search for it using contains.
-            //System.out.println("pushing start:" + start + " target: " + remained);
             result.add(new ArrayList<>(temp));
             return;
         }
-        for (int i = start; i < input.length; i++) {   // O(n)
-            //System.out.println("i:" + i + " input[i]: " + input[i] + " start:" + start + " target: " + remained);
-            if(input[i] > remained)  {
-                //System.out.println("input[i]:" + input[i] + " > target:" + remained + " so breaking out");
-                break;
-            }
-            temp.add(input[i]);
+        for (int i = start; i < candidates.length; i++) {   // O(n)
+            if(candidates[i] > remained) break;
+            temp.add(candidates[i]);
             // remained = remained - candidates[i]; <- common mistake
-            compute(result, temp, input, i,remained - input[i]); // not i + 1 because we can reuse same elements
+            compute(temp, candidates, i,remained - candidates[i]); // not i + 1 because we can reuse same elements
             temp.remove(temp.size()-1); //remove the last added item
         }
     }
 
     public static void main(String[] args) {
         LC39CombinationSum cs = new LC39CombinationSum();
-        List<List<Integer>> result = cs.combinationSum(new int[]{2,3,6,7}, 7);
-        System.out.println(result);
+        System.out.println( cs.combinationSum(new int[]{2,3,6,7}, 7));
     }
 }
