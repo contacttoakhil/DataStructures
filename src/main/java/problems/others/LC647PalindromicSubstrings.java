@@ -39,7 +39,7 @@ public class LC647PalindromicSubstrings {
     }
 
     private void expandAroundCenter(String s, int left, int right) {
-        while (left >=0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+        while (left >= 0 && right <= s.length()-1 && s.charAt(left) == s.charAt(right)) {
             left--;
             right++;
             count++;

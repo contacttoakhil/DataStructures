@@ -27,13 +27,14 @@ public class LC20ValidParantheses {
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<Character>();
         for(char c : s.toCharArray()) {
-            if (this.mappings.containsKey(c)) {    // closing bracket?
-                char topElement = stack.empty() ? '#' : stack.pop();                  // Get the top element of the stack. If the stack is empty, set a dummy value of '#'
-                if (topElement != this.mappings.get(c)) {                             // If the mapping for this bracket doesn't match the stack's top element, return false.
+            if (this.mappings.containsKey(c)) {    // contains closing bracket?
+                Character charAtTop = !stack.isEmpty() ? stack.pop() : '@';
+                if(charAtTop != this.mappings.get(c)) {
+                    // If the stack is not empty and item at top is not opening parentheses? If yes then this is wrong.
                     return false;
                 }
             } else {
-                stack.push(c);          // push opening bracket to stack
+                stack.push(c);
             }
         }
         return stack.isEmpty();                         // If the stack still contains elements, then it is an invalid expression.
@@ -41,12 +42,14 @@ public class LC20ValidParantheses {
 
     public static void main(String[] args) {
         LC20ValidParantheses lc20ValidParantheses = new LC20ValidParantheses();
+        System.out.println(lc20ValidParantheses.isValid("]"));
         System.out.println(lc20ValidParantheses.isValid("["));
         System.out.println(lc20ValidParantheses.isValid("()"));
         System.out.println(lc20ValidParantheses.isValid("()[]{}"));
         System.out.println(lc20ValidParantheses.isValid("(]"));
         System.out.println(lc20ValidParantheses.isValid("([)]"));
         System.out.println(lc20ValidParantheses.isValid("{[]}"));
+
     }
 }
 

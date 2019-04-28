@@ -38,30 +38,21 @@ public class LC416PartitionEqualSubsetSum {
         if (nums == null || nums.length == 0) {
             return true;
         }
-
         int sum = sumOfElements(nums);
-        if (sum % 2 == 1) {
+        if (sum % 2 == 1)
             return false;
-        }
-
-        sum = sum / 2;
-
-        boolean[] dp = new boolean[sum + 1];
+        int target = sum / 2;
+        boolean[] dp = new boolean[target + 1];
         dp[0] = true;
 
-        for (int i = 1; i <= nums.length; i++) {
-            for (int j = sum; j >= 0; j--) {
-                boolean canFill = dp[j];
+        for (int t = target; t > 0; t--)
+            for(int num : nums)
+                dp[t] = t < num ? dp[t] : dp[t] | dp[t-num];
 
-                if (j - nums[i - 1] >= 0) {
-                    canFill = canFill | dp[j - nums[i - 1]];
-                }
-
-                dp[j] = canFill;
-            }
-        }
-
-        return dp[sum];
+        for (int num : nums)
+            for (int t = target; t > 0; t--)
+                dp[t] = (t < num) ? dp[t] : dp[t] | dp[t - num];
+        return dp[target];
     }
 
     private int sumOfElements(int[] nums) {

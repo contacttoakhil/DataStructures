@@ -25,7 +25,7 @@ import java.util.Arrays;
  *
  * https://leetcode.com/problems/task-scheduler/
  *
- * Solution:If we are able to, somehow, determine the number of idle slots, we can find out the time required to execute all the tasks as idle_slots+TotalNumberOfTasks. Thus, the idea is to find out the idle time first.
+ * Solution: If we can determine the number of idle slots then time required to execute all the tasks is idle_slots + TotalNumberOfTasks. Thus, the idea is to find out the idle time first.
  */
 public class LC621TaskScheduler {
     public int leastInterval(char[] tasks, int n) {
@@ -35,8 +35,13 @@ public class LC621TaskScheduler {
         Arrays.sort(map);
         int max_val = map[25] - 1, idle_slots = max_val * n;
         for (int i = 24; i >= 0 && map[i] > 0; i--) {
-            idle_slots -= Math.min(map[i], max_val);
+            idle_slots = idle_slots - map[i]; //Math.min(map[i], max_val);
         }
         return idle_slots > 0 ? idle_slots + tasks.length : tasks.length;
+    }
+
+    public static void main(String[] args) {
+        LC621TaskScheduler taskScheduler = new LC621TaskScheduler();
+        System.out.println(taskScheduler.leastInterval(new char[]{'A','A','A','B','B','B'}, 2));
     }
 }

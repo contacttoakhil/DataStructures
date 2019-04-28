@@ -21,16 +21,16 @@ package main.java.problems.others;
  */
 public class LC75SortColors {
 
-    // Using dutch flag - single pass
-    public void sortColorsDF(int[] nums) {
-        int smaller  = 0, equal = 0, larger = nums.length - 1;
-        while (equal <= larger) {
-            if (nums[equal] == 0)
-                swap(nums, smaller++, equal);
-            else if (nums[equal] == 2)
-                swap(nums, --larger, equal);
-            else
-                equal++;
+    public void sortColors(int[] nums) {
+        int start = 0, mid = 0, end = nums.length-1;
+        int pivot = 1;
+        while (mid <= end) {
+            if(nums[mid] < pivot)               // current element is 0
+                swap(nums, start++, mid++);
+            else if (nums[mid] > pivot)     	// current element is 2
+                swap(nums, mid, end--);
+            else						        // current element is 1
+                ++mid;
         }
     }
 
@@ -38,29 +38,6 @@ public class LC75SortColors {
         int temp = nums[indexOne];
         nums[indexOne] = nums[indexTwo];
         nums[indexTwo] = temp;
-    }
-
-    // Using Count sort - two passes
-    public void sortColors(int[] nums) {
-        if(nums==null||nums.length<2){
-            return;
-        }
-
-        int[] countArray = new int[3];
-        for(int i=0; i<nums.length; i++){
-            countArray[nums[i]]++;
-        }
-
-        int j = 0;
-        int k = 0;
-        while(j<=2){
-            if(countArray[j]!=0){
-                nums[k++]=j;
-                countArray[j] = countArray[j]-1;
-            }else{
-                j++;
-            }
-        }
     }
 
 }

@@ -14,8 +14,8 @@ import java.util.StringJoiner;
  * Dijkstra's algorithm is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks. The BFS algorithm cannot solve the shortest path problem because it cannot guarantee that the vertex at the
  * front of the queue is the one closest to source vertex s. The Dijkstra's algorithm is generalization of BFS and it keeps the shortest distance of every vertex i from the source in pathLength table. The shortest distance of source itself is zero.
  *
- * This algorithm uses the greedy approach and always picks up the next closest vertex to the source by making use of priority queue. If we insert the adjacent vertices of vertex x into priority queue and then pick the minimum element from this then it
- * would always be the one closest to the current vertex(x). It makes use of priority queue to save unvisited vertices by distance from source (s). It does not work with negative weight edges and hence validates the edges before proceeding.
+ * This algorithm uses the greedy approach and always picks up the next closest vertex to the source by making use of priority queue. If we insert the adjacent vertices of vertex r into priority queue and then pick the minimum element from this then it
+ * would always be the one closest to the current vertex(r). It makes use of priority queue to save unvisited vertices by distance from source (s). It does not work with negative weight edges and hence validates the edges before proceeding.
  *
  * Dijkstra's original algorithm does not use a min-priority queue and runs in quadratic time O(|V|^2) where |V| is the number of nodes. The implementation based on a min-priority queue implemented by a Fibonacci heap and running in O(|E|+|V|\log |V|)
  * (where |E| is the number of edges) is due to Fredman & Tarjan 1984. This is asymptotically the fastest known single-source shortest-path algorithm for arbitrary directed graphs with unbounded non-negative weights.

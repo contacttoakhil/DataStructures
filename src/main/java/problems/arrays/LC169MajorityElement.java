@@ -23,4 +23,9 @@ public class LC169MajorityElement {
         Arrays.sort(nums);
         return nums[nums.length/2];
     }
+
+    public static void main(String[] args) {
+        LC169MajorityElement majorityElement = new LC169MajorityElement();
+        System.out.println(majorityElement.majorityElement(new int[] {3,2,3,2,2,2,1,1,1,1,1,1}));
+    }
 }

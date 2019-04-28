@@ -47,7 +47,7 @@ public class LC03LongestSubstringWithoutRepeatingCharacters {
         int[] index = new int[256];
         for (int j = 0, i = 0; j < n; j++) {
             char charAtIdxJ = s.charAt(j);
-            i = Math.max(index[charAtIdxJ], i);
+            i = Math.max(index[charAtIdxJ], i);             // i->j would be sting without repeating chars
             maxLen = Math.max(maxLen, j - i + 1);
             index[charAtIdxJ] = j + 1;
         }

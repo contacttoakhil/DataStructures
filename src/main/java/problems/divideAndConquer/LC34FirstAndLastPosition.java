@@ -14,7 +14,7 @@ public class LC34FirstAndLastPosition {
         else
             return first(nums,mid+1,finish,target);
     }
-
+ 
     public int last(int[]  nums, int start, int finish, int target) {
         if(start>finish) return -1;
         int mid = start +(finish-start)/2;

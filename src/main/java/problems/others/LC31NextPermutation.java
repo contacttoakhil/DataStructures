@@ -1,5 +1,7 @@
 package main.java.problems.others;
 
+import java.util.Arrays;
+
 /***
  * Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
  *
@@ -14,11 +16,11 @@ package main.java.problems.others;
  * 1,1,5 → 1,5,1
  *
  * Solution: The steps followed are:
- * a) Scan from right to left, find the first element that is less than its previous one.
- *    4 5 6 3 2 1
- *      |
- *      p
- * b) Scan from right to left, find the first element that is greater than p.
+ * a) Find inversion point: left to ip elements are sorted in increasing fashion and right to ip are sorted in decreasing fashion.
+ *    1  5  8  4  7  6  5  3  1
+ *             |
+ *         inversion point
+ * b) Scan from right to left, find the first element that is greater than ip i.e. rp and element is replacement element
  *    4 5 6 3 2 1
  *        |
  *        q
@@ -32,18 +34,22 @@ package main.java.problems.others;
 public class LC31NextPermutation {
 
     public void nextPermutation(int[] nums) {
-        int i = nums.length - 2;
-        while (i >= 0 && nums[i + 1] <= nums[i]) {
-            i--;
+        // find inversion point
+        int ip = nums.length - 2;
+        while (ip >= 0 && nums[ip] >= nums[ip + 1]) {
+            ip--;
         }
-        if (i >= 0) {
-            int j = nums.length - 1;
-            while (j >= 0 && nums[j] <= nums[i]) {
-                j--;
+        // find replacement point if ip is not -1 and swap elements at ip and rp.
+        if(ip >= 0) {
+            for (int rp = nums.length - 1; rp > ip ; rp--) {
+                if(nums[rp] > nums[ip]) {
+                    swap(nums, ip, rp);
+                    break;
+                }
             }
-            swap(nums, i, j);
         }
-        reverse(nums, i + 1);
+        // reverse inversion point till end. If ip==-1 e.g. [3,2,1]then we need to give starting permutation, e.g. [1,2,3]
+        reverse(nums, ip + 1);
     }
 
     private void reverse(int[] nums, int start) {
@@ -59,5 +65,12 @@ public class LC31NextPermutation {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
+    }
+
+    public static void main(String[] args) {
+        LC31NextPermutation nextPermutation = new LC31NextPermutation();
+        int[] nums = new int[]{3,2,1};
+        nextPermutation.nextPermutation(nums);
+        System.out.println(Arrays.toString(nums));
     }
 }

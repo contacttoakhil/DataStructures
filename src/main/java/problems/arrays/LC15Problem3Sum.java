@@ -24,34 +24,30 @@ public class LC15Problem3Sum {
 
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
+        if(nums == null || nums.length < 3) return result;
+        Arrays.sort(nums); // sort them so that they are in non-decreasing order.
 
-        if(nums == null || nums.length<3)
-            return result;
-
-        Arrays.sort(nums);
-
-        for(int i = 0; i < nums.length-2; i++) {
-            if(i == 0 || nums[i] > nums[i-1]) {
-                int start = i + 1;
-                int end = nums.length - 1;
-                while(start < end) {
-                    if(nums[i] + nums[start] + nums[end] == 0){
-                        populateTuple(result, nums[i], nums[start], nums[end]);
-                        start++;
-                        end--;
-                        while(start < end && nums[start] == nums[start-1])  start++;
-                        while(start < end && nums[end] == nums[end+1]) end--;
+        for (int i = 0; i < nums.length-2; i++) { // length -2 as we need 3 nums
+            if( i == 0 || nums[i] > nums[i-1]) {
+                int start = i + 1;          // move start onwards based on tupleSum
+                int end = nums.length - 1;  // move end backwards based on tupleSum
+                while (start < end) {
+                    int tupleSum = nums[i]+nums[start]+nums[end];
+                    if(tupleSum == 0) {
+                        populateTuple(result, nums[i], nums[start], nums[end]); // capture result
+                        start++; end--;
+                        while (start < end && nums[start] == nums[start - 1]) start++;  // ignore duplicates from star onwards
+                        while (start < end && nums[end] == nums[end + 1]) end--;        // ignore duplicates from end backwards
                     }
-                    else if(nums[i]+nums[start]+nums[end]<0)
+                    else if(tupleSum < 0)   // move ahead from start as nums is sorted
                         start++;
-                    else
+                    else                   // reduce from end if tuple-sum >0
                         end--;
                 }
             }
         }
         return result;
     }
-
 
     private void populateTuple(List<List<Integer>> result, int num1, int num2, int num3) {
         result.add(Arrays.asList(num1, num2, num3));

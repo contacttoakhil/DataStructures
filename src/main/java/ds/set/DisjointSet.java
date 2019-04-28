@@ -24,7 +24,7 @@ public class DisjointSet {
      *  Performs path compression along the way.
      *
      *  @param p the element sought.
-     *  @return the set containing x.
+     *  @return the set containing r.
      **/
     public int find(int p) {
         validate(p);

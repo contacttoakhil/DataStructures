@@ -1,6 +1,7 @@
 package main.java.problems.others;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,11 +24,15 @@ import java.util.List;
  */
 public class LC406QueueReconstructionByHeight {
     public int[][] reconstructQueue(int[][] people) {
-        Arrays.sort(people, (a, b) -> a[0] == b[0] ? a[1] - b[1] : b[0] - a[0]);
-        List<int[]> list = new LinkedList<>();
-        for (int[] p : people) {
-            list.add(p[1], p);
-        }
-        return list.toArray(new int[list.size()][]);
+        // Arrays.sort(people, (p1, p2) -> p1[0]!=p2[0]?Integer.compare(p2[0],p1[0]): Integer.compare(p1[1],p2[1])); // Time: 38 ms but with anonymous class it is 7 ms.
+        Arrays.sort(people,new Comparator<int[]>(){
+            public int compare(int[] p1, int[] p2){
+                return p1[0]!=p2[0]?Integer.compare(p2[0],p1[0]): Integer.compare(p1[1],p2[1]);
+            }
+        });
+
+        List<int[]> list = new LinkedList();
+        for (int[] ppl: people) list.add(ppl[1], ppl);
+        return list.toArray(new int[people.length][] );
     }
 }

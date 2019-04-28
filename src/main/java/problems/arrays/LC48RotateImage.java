@@ -1,7 +1,9 @@
 package main.java.problems.arrays;
 
+import java.util.Arrays;
+
 /***
- * You are given an n x n 2D matrix representing an image.
+ * You are given an n r n 2D matrix representing an image.
  *
  * Rotate the image by 90 degrees (clockwise).
  *
@@ -30,20 +32,37 @@ package main.java.problems.arrays;
  */
 public class LC48RotateImage {
     public void rotate(int[][] matrix) {
-        int n = matrix.length;
-        if(n<=1)    return;
-        for(int i=0; i<n/2; ++i) {
-            for (int j = i; j < n - 1 - i; ++j) {
-                int t = matrix[i][j];
-                //left to top
-                matrix[i][j] = matrix[n - 1 - j][i];
-                //bottom to left
-                matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
-                //right to bottom
-                matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
-                //top to right
-                matrix[j][n - 1 - i] = t;
+        int matrixSize = matrix.length - 1;
+        for(int i = 0; i < matrix.length/2; i++) {          // loop over for all layers
+            int first = i;                      // first element in this layer
+            int last = matrixSize - i;               // last element in this layer
+            for (int j = first; j < last; ++j) {
+                // exchange four elements
+                int t1 =  matrix[matrixSize - j][i];
+                int t2 = matrix[matrixSize - i][matrixSize - j];
+                int t3 = matrix[j][matrixSize - i];
+                int t4 =  matrix[i][j];
+
+                matrix[i][j] = t1;                    //left to top
+                matrix[matrixSize - j][i] = t2;    //bottom to left
+                matrix[matrixSize - i][matrixSize - j] = t3;    //right to bottom
+                matrix[j][matrixSize - i] = t4;                                    //top to right
             }
         }
     }
+
+    public static void main(String[] args) {
+        LC48RotateImage rotateImage = new LC48RotateImage();
+        int[][] matrix = {
+                {5, 1, 9, 11},
+                {2, 4, 8, 10},
+                {13, 3, 6, 7},
+                {15, 14, 12, 16}
+        };
+
+        System.out.println(Arrays.deepToString(matrix));
+        rotateImage.rotate(matrix);
+        System.out.println(Arrays.deepToString(matrix));
+    }
+
 }

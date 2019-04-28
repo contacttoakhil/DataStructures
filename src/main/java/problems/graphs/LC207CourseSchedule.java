@@ -28,10 +28,26 @@ import java.util.*;
 public class LC207CourseSchedule {
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        Map<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
         int[] indegree = new int[numCourses];
         Queue<Integer> queue = new LinkedList<Integer>();
+        Map<Integer, ArrayList<Integer>> map = initializeMap(numCourses, prerequisites, indegree);
         int count = numCourses;
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0)
+                queue.offer(i);
+        }
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+            for (int i : map.get(current)) {
+                if (--indegree[i] == 0)
+                    queue.offer(i);
+            }
+            count--;
+        }
+        return count == 0;
+    }
+    private Map<Integer,ArrayList<Integer>> initializeMap(int numCourses, int[][] prerequisites, int[] indegree) {
+        Map<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
         for (int i = 0; i < numCourses; i++) {
             map.put(i, new ArrayList<Integer>());
         }
@@ -39,20 +55,6 @@ public class LC207CourseSchedule {
             map.get(prerequisites[i][0]).add(prerequisites[i][1]);
             indegree[prerequisites[i][1]]++;
         }
-        for (int i = 0; i < numCourses; i++) {
-            if (indegree[i] == 0) {
-                queue.offer(i);
-            }
-        }
-        while (!queue.isEmpty()) {
-            int current = queue.poll();
-            for (int i : map.get(current)) {
-                if (--indegree[i] == 0) {
-                    queue.offer(i);
-                }
-            }
-            count--;
-        }
-        return count == 0;
+        return map;
     }
 }
