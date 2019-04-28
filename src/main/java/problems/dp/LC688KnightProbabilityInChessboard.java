@@ -19,7 +19,7 @@ import java.util.Arrays;
  * b) If K = 0 then we have no more moves left and if knight's position [r,c] is within the board then probability is one and we return 1.
  *
  * Recursion
- * We can define the probability for K-1 as the summation of all the probabilities at N-1 divided by 8 (each equally likely to take move to current position at Nth step).
+ * We can define the probability for K as the summation of all the probabilities at K-1 divided by 8 (each equally likely to take move to current position at Kth step).
  *
  *                          i=8
  * probability(r,c,K) -> ⎲   probability(nxt_r, nxt_c, K-1)/8 where nxt_r, nxt_c are possible next positions for knight at [r,c].
@@ -36,7 +36,8 @@ import java.util.Arrays;
  * [r-1, c+2]
  *
  * Considering the directions we can keep the dir array:
- * int[][]dir = new int[][]{    {-2,-1},    {-1,-2},    {1,-2}, {2,-1}, {2,1},  {1,2},  {-1,2}, {-2,1}  };
+ * int[] dx = new int[] { -2, -1, 1, 2, 2, 1, -1, -2 };  // possible directions to move for row
+ * int[] dy = new int[] { -1, -2, -2, -1, 1, 2, 2, 1 };  // possible directions to move for col
  *
  * How to solve using DP?
  * The idea is to keep track for each number of moves the probability that the knight will be on a certain square. Initially the probability is 1 (100%) that it will be on the start square [r,c] and 0 on all other squares.
