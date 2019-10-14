@@ -49,11 +49,11 @@ package main.java.problems.dp;
  * https://leetcode.com/problems/regular-expression-matching/
  *
  * Solution:
- * If next char (j+1) in pattern is * then
- *   a) ignore the character as * can represent empty or no presence of previous char, move to next char (j+2).
+ * If children char (j+1) in pattern is * then
+ *   a) ignore the character as * can represent empty or no presence of previous char, move to children char (j+2).
  *   b) matches one or more of previous chars, so if current char match in text and pattern, move one char in text and try again.
  *
- * If next char is not * then it can be regular alphabet or . and in that case move one char in both text and pattern, if current char match.
+ * If children char is not * then it can be regular alphabet or . and in that case move one char in both text and pattern, if current char match.
  */
 public class LC06RegularExpressionMatching {
 

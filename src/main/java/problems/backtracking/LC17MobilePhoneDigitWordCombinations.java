@@ -47,7 +47,7 @@ public class LC17MobilePhoneDigitWordCombinations {
         for (int i = 0; i < letters.length(); i++) {
             String letter = phone.get(nextDigit).substring(i, i + 1);
             // append the current letter to the combination
-            // and proceed to the next digits
+            // and proceed to the children digits
             backtrack(temp + letter, remainingDigits.substring(1));
         }
     }

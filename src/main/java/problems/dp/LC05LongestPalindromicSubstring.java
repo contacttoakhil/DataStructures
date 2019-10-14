@@ -33,13 +33,13 @@ package main.java.problems.dp;
  * For odd length:
  *
  *  ------------------------
- *  |C | A | M | M | A | C |
+ *  |C | A | MOD | MOD | A | C |
  *  ------------------------
  *           ^
  *
  * For even length (between letters):
  *  ------------------------
- *  |C | A | M | M | A | C |
+ *  |C | A | MOD | MOD | A | C |
  *  ------------------------
  *             ^
  *

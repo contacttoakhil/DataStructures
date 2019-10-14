@@ -18,23 +18,22 @@ import java.util.Map;
 public class LC560SubArraySumEqualsK {
 
     public int subarraySum(int[] nums, int k) {
-        Map<Integer,Integer> partialSumMap = new HashMap<>();
+        if(nums == null || nums.length == 0)    return 0;
         int sum = 0, result=0;
+        Map<Integer,Integer> partialSumMap = new HashMap<>();
         partialSumMap.put(0,1);
-        for (int i = 0; i < nums.length; i++) {
-            sum = sum + nums[i];
-
-            if (partialSumMap.containsKey(sum - k)) {
+        for (int num : nums) {
+            sum = sum + num;
+            if (partialSumMap.containsKey(sum - k))
                 result += partialSumMap.get(sum - k);
-            }
-
-            partialSumMap.put(sum, partialSumMap.getOrDefault(sum,0)+1);
+            partialSumMap.put(sum, partialSumMap.getOrDefault(sum, 0) + 1);
         }
         return result;
     }
 
     public static void main(String[] args) {
         LC560SubArraySumEqualsK subArraySumEqualsK = new LC560SubArraySumEqualsK();
-        System.out.println(subArraySumEqualsK.subarraySum(new int[]{1,2,3,0,3,2,6}, 6));
+        System.out.println(subArraySumEqualsK.subarraySum(new int[]{1,1,1}, 2)); // 2
+        System.out.println(subArraySumEqualsK.subarraySum(new int[]{1,2,3,0,3,2,6}, 6)); // 4
     }
 }

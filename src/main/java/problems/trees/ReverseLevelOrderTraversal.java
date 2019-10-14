@@ -1,6 +1,5 @@
 package main.java.problems.trees;
 
-import jdk.nashorn.api.tree.Tree;
 import main.java.ds.queue.ArrayQueue;
 import main.java.ds.queue.IQueue;
 import main.java.ds.stack.ArrayStack;

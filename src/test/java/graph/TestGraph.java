@@ -119,7 +119,7 @@ public class TestGraph {
     private static void testGraphSearchOperations(IUndirectedGraph graph)
     {
         System.out.println(graph);
-        System.out.println("DFS - number of connected vertices to vertex 0 is: " + graph.depthFirstSearch(0));
+        System.out.println("backtrack - number of connected vertices to vertex 0 is: " + graph.depthFirstSearch(0));
         System.out.println("BFS - path from 4 to 0 is: ");
         graph.breadthFirstSearch(0, 4);
         System.out.println();

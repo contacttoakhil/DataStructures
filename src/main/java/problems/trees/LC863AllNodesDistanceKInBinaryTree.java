@@ -55,7 +55,7 @@ public class LC863AllNodesDistanceKInBinaryTree {
     }
 
     /**
-     * This method uses DFS to populate the parent map which contains the parent for all the nodes in the tree.
+     * This method uses backtrack to populate the parent map which contains the parent for all the nodes in the tree.
      * @param node
      * @param par
      */

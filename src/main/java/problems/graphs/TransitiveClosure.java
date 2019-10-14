@@ -20,7 +20,7 @@ import java.util.List;
  T T T T
  One solution is to use Floyd-Warshall algorithm which takes O(V^3)  time. How can we solve it using dfs?
 
- Hint: DFS for each vertex to find vertices reachable from source.
+ Hint: backtrack for each vertex to find vertices reachable from source.
 
  Ref - https://www.geeksforgeeks.org/transitive-closure-of-a-graph-using-dfs/
  */

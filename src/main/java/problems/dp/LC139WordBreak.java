@@ -1,5 +1,6 @@
 package main.java.problems.dp;
 
+import java.util.Arrays;
 import java.util.List;
 
 /***
@@ -45,4 +46,8 @@ public class LC139WordBreak {
         return dp[s.length()];
     }
 
+    public static void main(String[] args) {
+        LC139WordBreak wordBreak = new LC139WordBreak();
+        System.out.println(wordBreak.wordBreak("catsandog", Arrays.asList("cats","dog","sand","and","cat")));
+    }
 }

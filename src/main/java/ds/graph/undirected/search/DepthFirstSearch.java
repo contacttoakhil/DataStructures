@@ -6,7 +6,7 @@ import main.java.ds.graph.undirected.IUndirectedGraph;
  * Depth First Search works similar to pre-order traversal and makes use of stack. When adjacency list is used to represent the graph, then we start at a vertex and process the adjacent nodes only if they are not visited and hence the time complexity
  * is O(V+E). But when adjacency matrix is used we cannot find this efficiently and get quadratic time complexity of O(V^2).
  *
- * Applications for DFS - Topological sorting, finding connected components, finding articulation points (cut vertices) of graph, finding strongly connected component, solving mazes etc.
+ * Applications for backtrack - Topological sorting, finding connected components, finding articulation points (cut vertices) of graph, finding strongly connected component, solving mazes etc.
  *
  */
 public class DepthFirstSearch {

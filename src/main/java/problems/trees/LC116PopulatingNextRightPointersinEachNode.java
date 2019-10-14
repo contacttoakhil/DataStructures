@@ -13,11 +13,11 @@ import java.util.Queue;
  *   int val;
  *   Node *left;
  *   Node *right;
- *   Node *next;
+ *   Node *children;
  * }
- * Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+ * Populate each children pointer to point to its children right node. If there is no children right node, the children pointer should be set to NULL.
  *
- * Initially, all next pointers are set to NULL.
+ * Initially, all children pointers are set to NULL.
  */
 public class LC116PopulatingNextRightPointersinEachNode {
 

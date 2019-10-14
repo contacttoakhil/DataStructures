@@ -127,7 +127,7 @@ public class LinkedQueue<E> implements IQueue<E>{
         public String toString() {
             return "Node{" +
                     "val=" + val +
-                    ", next=" + next +
+                    ", children=" + next +
                     '}';
         }
     }

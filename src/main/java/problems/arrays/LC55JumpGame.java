@@ -30,7 +30,7 @@ public class LC55JumpGame {
         int max = nums[0]; //max stands for the largest index that can be reached.
 
         for(int i=0; i<nums.length; i++){
-            //if not enough to go to next
+            //if not enough to go to children
             if(max <= i && nums[i] == 0)
                 return false;
 

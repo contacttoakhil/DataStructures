@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /***
- * There is a ball in a maze with empty spaces and walls. The ball can go through empty spaces by rolling up, down, left or right, but it won't stop rolling until hitting a wall. When the ball stops, it could choose the next direction.
+ * There is a ball in a maze with empty spaces and walls. The ball can go through empty spaces by rolling up, down, left or right, but it won't stop rolling until hitting a wall. When the ball stops, it could choose the children direction.
  *
  * Given the ball's start position, the destination and the maze, find the shortest distance for the ball to stop at the destination. The distance is defined by the number of empty spaces traveled by the ball from the start position (excluded) to the destination (included). If the ball cannot stop at the destination, return -1.
  *
@@ -30,7 +30,7 @@ import java.util.Queue;
  *
  * Solution:
  * a) We initialize distance array initialized with very large values in the beginning, distance[i][j] represents the minimum number of steps required to reach the position (i,j) from the start position.
- * b) We use BFS: we explore all the new positions that can be reached starting from the current position first, before moving onto the next positions that can be reached from these new positions.
+ * b) We use BFS: we explore all the new positions that can be reached starting from the current position first, before moving onto the children positions that can be reached from these new positions.
  * c) We make use of dir array to travel in four directions.
  * d) Whenever we make a traversal in any direction, we keep a track of the number of steps taken while moving in this direction in count variable
  * e) We start from current pos and traverse in a particular direction until we hit the wall and if the  distance from current pos + count is lesser then we update accordingly.

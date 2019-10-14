@@ -10,7 +10,7 @@ import java.util.Arrays;
  So, his directions of movement shall be : House
  −> 1st farm −> 2nd -> 3rd -> 4th -> ......->Nth and so on
 
- There are N farms in a line. Running from one farm to the next one consumes a single unit of Monk's current energy . So sometimes he may have to refill his energy. He can ask a farm owner to give some milk so that he can gain some energy. The Farm owner
+ There are N farms in a line. Running from one farm to the children one consumes a single unit of Monk's current energy . So sometimes he may have to refill his energy. He can ask a farm owner to give some milk so that he can gain some energy. The Farm owner
  agrees to give him milk only on one condition that he wont be allowed to take apples from that farm.
 
  So, at each farm, Monk has one choice either to take milk ( for increasing his energy) or apples from the farm. Each farm has different amount of apples and milk. So, from each farm, Monk is allowed to take only either the entire amount of Milk or the

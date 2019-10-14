@@ -65,18 +65,24 @@ public class LC72EditDistance {
         for (int j = 0; j <= len2; j++)             // j insertions
             dp[0][j] = j;
 
-        for (int i = 0; i < len1; i++) {
-            for (int j = 0; j < len2; j++) {
-                    dp[i + 1][j + 1] = (word1.charAt(i) == word2.charAt(j)) ? dp[i][j] : min(i, j, dp);
+        for (int i = 1; i <= len1; i++) {
+            for (int j = 1; j <= len2; j++) {
+                    dp[i][j] = (word1.charAt(i-1) == word2.charAt(j-1)) ? dp[i-1][j-1] : min(i, j, dp);
             }
         }
         return dp[len1][len2];
     }
 
     private int min(int i, int j, int[][] dp) {
-        int replace = dp[i][j] + 1;
-        int insert = dp[i][j + 1] + 1;
-        int delete = dp[i + 1][j] + 1;
+        int replace = dp[i - 1][j - 1] + 1;
+        int insert = dp[i][j - 1] + 1;
+        int delete = dp[i - 1][j] + 1;
         return Math.min(replace, Math.min(insert, delete));
+    }
+
+    public static void main(String[] args) {
+        LC72EditDistance editDistance = new LC72EditDistance();
+        System.out.println(editDistance.minDistance("horse","ros")); //3
+        System.out.println(editDistance.minDistance("intention","execution")); //5
     }
 }

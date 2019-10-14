@@ -1,5 +1,8 @@
 package main.java.problems.others;
 
+import main.java.ds.queue.MaxQueue;
+
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -36,35 +39,27 @@ import java.util.LinkedList;
 public class LC239SlidingWindowMaximum {
 
     public int[] maxSlidingWindow(int[] nums, int k) {
-        if (nums == null || nums.length == 0 || k <= 0) {
+        if (nums == null || k <= 0) {
             return new int[0];
         }
-
-        Deque<Integer> deque = new LinkedList<Integer>();
-        int[] result = new int[nums.length - k + 1];
-
+        MaxQueue<Integer> mq = new MaxQueue();
+        int [] res = new int[nums.length-k+1];
+        int idx = 0;
         for (int i = 0; i < nums.length; i++) {
-
-            // remove smaller numbers in k range as they are useless
-            while (!deque.isEmpty() && nums[deque.getLast()] < nums[i]) {       // getLast retrieves, but does not remove, the last element of this deque.
-                deque.removeLast();
+            if (i < k - 1) {
+                mq.push(nums[i]);
+                continue;
             }
-
-            deque.addLast(i);
-
-            // Remove if the size of the deque is greater than k
-            if (i - deque.getFirst() + 1 > k) {
-                deque.removeFirst();
-            }
-
-            // Add into the result
-            if (i + 1 >= k) {
-                result[i + 1 - k] = nums[deque.getFirst()]; // getFirst retrieves, but does not remove, the first element of this deque.
-            }
+            mq.push(nums[i]);
+            res[idx++] = mq.front();
+            mq.pop(nums[i - k + 1]);
         }
-
-        return result;
-
+        return res;
     }
 
+    public static void main(String[] args) {
+        LC239SlidingWindowMaximum swm = new LC239SlidingWindowMaximum();
+        int[] result = swm.maxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7}, 3);
+        System.out.println(Arrays.toString(result));
+    }
 }

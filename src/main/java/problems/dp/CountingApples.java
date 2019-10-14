@@ -1,7 +1,7 @@
 package main.java.problems.dp;
 
 /**
- * A table composed of N r M cells, each having a certain quantity of apples, is given. You start from the upper-left corner. At each step you can go down or right one cell. Find the maximum number of apples you can collect.
+ * A table composed of N r MOD cells, each having a certain quantity of apples, is given. You start from the upper-left corner. At each step you can go down or right one cell. Find the maximum number of apples you can collect.
  */
 public class CountingApples {
     int m,n;

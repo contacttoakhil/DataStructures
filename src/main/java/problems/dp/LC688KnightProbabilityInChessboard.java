@@ -22,7 +22,7 @@ import java.util.Arrays;
  * We can define the probability for K as the summation of all the probabilities at K-1 divided by 8 (each equally likely to take move to current position at Kth step).
  *
  *                          i=8
- * probability(r,c,K) -> ⎲   probability(nxt_r, nxt_c, K-1)/8 where nxt_r, nxt_c are possible next positions for knight at [r,c].
+ * probability(r,c,K) -> ⎲   probability(nxt_r, nxt_c, K-1)/8 where nxt_r, nxt_c are possible children positions for knight at [r,c].
  *                       ⎳i=1
  *
  * At [r.c] possible moves are:

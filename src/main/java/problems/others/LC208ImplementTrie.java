@@ -1,78 +1,48 @@
 package main.java.problems.others;
 
 public class LC208ImplementTrie {
-    private TrieNode root;
 
-    public LC208ImplementTrie() {
-        root = new TrieNode();
-    }
+    public TrieNode root = new TrieNode();
 
-    // Inserts a word into the trie.
-    public void insert(String word) {
-        TrieNode p = root;
-        for(int i=0; i<word.length(); i++){
-            char c = word.charAt(i);
-            int index = c-'a';
-            if(p.arr[index]==null){
-                TrieNode temp = new TrieNode();
-                p.arr[index]=temp;
-                p = temp;
-            }else{
-                p=p.arr[index];
+    public void insert(String word){
+        TrieNode node = root;
+        for(char c: word.toCharArray()){
+            if(node.children[c-'a']==null){
+                node.children[c-'a']= new TrieNode();
             }
+            node = node.children[c-'a'];
         }
-        p.isEnd=true;
+        node.item = word;
     }
 
-    // Returns if the word is in the trie.
-    public boolean search(String word) {
-        TrieNode p = searchNode(word);
-        if(p==null){
-            return false;
-        }else{
-            if(p.isEnd)
-                return true;
+    public boolean search(String word){
+        TrieNode node = root;
+        for(char c: word.toCharArray()){
+            if(node.children[c-'a']==null)
+                return false;
+            node = node.children[c-'a'];
         }
-
-        return false;
-    }
-
-    // Returns if there is any word in the trie
-    // that starts with the given prefix.
-    public boolean startsWith(String prefix) {
-        TrieNode p = searchNode(prefix);
-        if(p==null){
-            return false;
-        }else{
+        if(node.item.equals(word)){
             return true;
+        }else{
+            return false;
         }
     }
 
-    public TrieNode searchNode(String s){
-        TrieNode p = root;
-        for(int i=0; i<s.length(); i++){
-            char c= s.charAt(i);
-            int index = c-'a';
-            if(p.arr[index]!=null){
-                p = p.arr[index];
-            }else{
-                return null;
-            }
+    public boolean startsWith(String prefix){
+        TrieNode node = root;
+        for(char c: prefix.toCharArray()){
+            if(node.children[c-'a']==null)
+                return false;
+            node = node.children[c-'a'];
         }
-
-        if(p==root)
-            return null;
-
-        return p;
-    }
-}
-
-class TrieNode {
-    TrieNode[] arr;
-    boolean isEnd;
-    // Initialize your data structure here.
-    public TrieNode() {
-        this.arr = new TrieNode[26];
+        return true;
     }
 
 }
+
+class TrieNode{
+    public TrieNode[] children = new TrieNode[26];
+    public String item = "";
+}
+

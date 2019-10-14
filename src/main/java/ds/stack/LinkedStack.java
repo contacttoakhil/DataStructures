@@ -113,7 +113,7 @@ public class LinkedStack<E> implements IStack<E> {
         public String toString() {
             return "Node{" +
                     "val=" + val +
-                    ", next=" + next +
+                    ", children=" + next +
                     '}';
         }
     }
