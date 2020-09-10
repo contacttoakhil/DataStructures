@@ -27,3 +27,13 @@ LeetCode Problems
 18 | 4Sum | Medium | 
 19 | Remove Nth Node From End of List | Easy | 
 20 | Valid Parentheses | Easy | [Solution](src/main/java/problems/stack/LC20ValidParantheses.java)
+21 | Merge Two Sorted Lists | Easy | [Solution](src/main/java/problems/list/LC21MergeTwoSortedList.java)
+22 | Generate Parentheses | Medium | [Solution](src/main/java/problems/backtracking/LC22GenerateParantheses.java)
+23 | Merge k Sorted Lists | Hard | [Solution](src/main/java/problems/divideAndConquer/LC23MergeKSortedLists.java)
+24 | Swap Nodes in Pairs | Easy | 
+25 | Reverse Nodes in k-Group | Hard | [Solution](src/main/java/problems/list/LC25ReverseNodesInKGroup.java)
+26 | Remove Duplicates from Sorted Array | Easy | 
+27 | Remove Element | Easy | 
+28 | Implement strstr() | Easy |
+29 | Divide Two Integers | Medium | 
+30 | Substring with Concatenation of All Words | Hard | 
