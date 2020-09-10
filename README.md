@@ -17,3 +17,13 @@ LeetCode Problems
 8 | String to Integer | Medium |
 9 | Palindrome Number | Easy | [Solution](src/main/java/problems/others/LC09PalindromeNumber.java)
 10 | Regular Expression Matching | Hard | [Solution](src/main/java/problems/dp/LC06RegularExpressionMatching.java)
+11 | Container With Most Water | Medium | [Solution](src/main/java/problems/greedy/LC11ContainerWithMostWater.java)
+12 | Integer to Roman | Medium | 
+13 | Roman to Integer | Easy | 
+14 | Longest Common Prefix | Easy | 
+15 | 3Sum | Medium | [Solution](src/main/java/problems/arrays/LC15Problem3Sum.java)
+16 | 3Sum Closest | Medium | [Solution](src/main/java/problems/arrays/LC16Problem3SumClosest.java)
+17 | Letter Combinations of a Phone Number | Medium | [Solution](src/main/java/problems/backtracking/LC17MobilePhoneDigitWordCombinations.java)
+18 | 4Sum | Medium | 
+19 | Remove Nth Node From End of List | Easy | 
+20 | Valid Parentheses | Easy | [Solution](src/main/java/problems/stack/LC20ValidParantheses.java)
