@@ -8,3 +8,4 @@ LeetCode Problems
 \# | Title | Difficulty | Solution
 ---|---|---|---
 1 | Two Sum | Easy | [Solution](https://github.com/contacttoakhil/DataStructures/blob/master/src/main/java/problems/arrays/LC01TwoSum.java)
+2 | Add Two Numbers | Medium | [Solution](src/main/java/problems/list/LC02AddTwoNumbers)
