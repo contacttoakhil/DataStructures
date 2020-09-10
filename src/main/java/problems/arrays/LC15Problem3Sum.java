@@ -28,6 +28,7 @@ public class LC15Problem3Sum {
         Arrays.sort(nums); // sort them so that they are in non-decreasing order.
 
         for (int i = 0; i < nums.length-2; i++) { // length -2 as we need 3 nums
+            if(nums[i] > 0) break; //numbers are sorted and if first number itself is greater than zero then impossible to find two greater number to sum up to zero
             if( i == 0 || nums[i] > nums[i-1]) {
                 int start = i + 1;          // move start onwards based on tupleSum
                 int end = nums.length - 1;  // move end backwards based on tupleSum
@@ -36,8 +37,8 @@ public class LC15Problem3Sum {
                     if(tupleSum == 0) {
                         populateTuple(result, nums[i], nums[start], nums[end]); // capture result
                         start++; end--;
-                        while (start < end && nums[start] == nums[start - 1]) start++;  // ignore duplicates from star onwards
-                        while (start < end && nums[end] == nums[end + 1]) end--;        // ignore duplicates from end backwards
+                        while (start < end && nums[start] == nums[start - 1]) start++;  // ignore duplicates right to start
+                        while (start < end && nums[end] == nums[end + 1]) end--;        // ignore duplicates left to end
                     }
                     else if(tupleSum < 0)   // move ahead from start as nums is sorted
                         start++;
@@ -49,6 +50,10 @@ public class LC15Problem3Sum {
         return result;
     }
 
+    private int ignoreDuplicatesFromStart(int start, int end, int[] nums) {
+        while (start < end && nums[start] == nums[start - 1]) start++;
+        return start;
+    }
     private void populateTuple(List<List<Integer>> result, int num1, int num2, int num3) {
         result.add(Arrays.asList(num1, num2, num3));
     }

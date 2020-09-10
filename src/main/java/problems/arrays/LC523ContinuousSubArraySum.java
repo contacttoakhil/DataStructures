@@ -48,4 +48,9 @@ public class LC523ContinuousSubArraySum {
         }
         return false;
     }
+
+    public static void main(String[] args) {
+        LC523ContinuousSubArraySum continuousSubArraySum = new LC523ContinuousSubArraySum();
+        System.out.println(continuousSubArraySum.checkSubarraySum(new int[] {23,2,4,6,7} , 6));
+    }
 }

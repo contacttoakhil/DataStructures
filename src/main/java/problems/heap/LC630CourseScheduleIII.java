@@ -31,16 +31,11 @@ public class LC630CourseScheduleIII {
     public int scheduleCourse(int[][] courses) {
         Arrays.sort(courses, Comparator.comparingInt(a -> a[1]));   // sort courses based on duration so that courses ending early will appear early
         PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());      // max-heap => course with max duration on top
-        int time = 0;
-        for (int[] course : courses) {
-            if(time + course[0] <= course[1] ) {  // time + duration < end day?
-                maxHeap.add(course[0]);
-                time = time + course[0];
-            }
-            else if(!maxHeap.isEmpty() && maxHeap.peek() > course[0]) {
-                time = time - maxHeap.poll() + course[0];
-                maxHeap.offer(course[0]);
-            }
+        int time=0;
+        for (int[] course:courses) {
+            time = time + course[0]; // add current course to a priority queue
+            maxHeap.add(course[0]);
+            if (time>course[1]) time = time - maxHeap.poll(); //If time exceeds, drop the previous course which costs the most time. (That must be the best choice!)
         }
         return maxHeap.size();
     }

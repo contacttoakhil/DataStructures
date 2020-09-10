@@ -1,6 +1,6 @@
 package main.java.problems.others;
 
-public class LC05PalindromeNumber {
+public class LC09PalindromeNumber {
 
     public boolean isPalindrome(int x) {
         int reversed = 0;

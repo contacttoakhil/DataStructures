@@ -99,7 +99,7 @@ public class LC438FindAllAnagramsInAString {
 
     public static void main(String[] args) {
         LC438FindAllAnagramsInAString findAllAnagramsInAString = new LC438FindAllAnagramsInAString();
-        System.out.println(findAllAnagramsInAString.findAnagrams("abab", "ab")); // [0,1,2]
+        //System.out.println(findAllAnagramsInAString.findAnagrams("abab", "ab")); // [0,1,2]
         System.out.println(findAllAnagramsInAString.findAnagrams("cbaebabacd", "abc"));  // [0,6]
     }
 }

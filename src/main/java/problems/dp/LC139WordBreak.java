@@ -1,7 +1,9 @@
 package main.java.problems.dp;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /***
  * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
@@ -32,15 +34,12 @@ public class LC139WordBreak {
 
     public boolean wordBreak(String s, List<String> wordDict) {
         boolean[] dp = new boolean[s.length() + 1];
+        Set<String> set = new HashSet<>(wordDict);
         dp[0] = true;
-        for (int i = 0; i < s.length(); i++) {
-            if (!dp[i]) continue;
-            for (String word : wordDict) {
-                int end = i + word.length();
-                if (end > s.length() || dp[end]) continue;
-                if (s.substring(i, end).equals(word)) {
-                    dp[end] = true;
-                }
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = i - 1; j >= 0; j--) {
+                dp[i] = dp[j] && set.contains(s.substring(j, i));
+                if(dp[i]) break;
             }
         }
         return dp[s.length()];
@@ -48,6 +47,6 @@ public class LC139WordBreak {
 
     public static void main(String[] args) {
         LC139WordBreak wordBreak = new LC139WordBreak();
-        System.out.println(wordBreak.wordBreak("catsandog", Arrays.asList("cats","dog","sand","and","cat")));
+        System.out.println(wordBreak.wordBreak("catsandog", Arrays.asList("cats","dog","sand","and","cat"))); // false
     }
 }

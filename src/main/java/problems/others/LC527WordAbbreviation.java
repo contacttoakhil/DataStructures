@@ -1,9 +1,6 @@
 package main.java.problems.others;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /***
  * Given an array of n distinct non-empty strings, you need to generate minimal possible abbreviations for every word following rules below.
@@ -27,15 +24,12 @@ public class LC527WordAbbreviation {
 
     public List<String> wordsAbbreviation(List<String> dict) {
         int len=dict.size();
-        String[] ans=new String[len];
+        String[] ans = getAbbreviations(dict); // ans:[l2e,god,i6l,me,i6t,i6l,i7n,f2e,i7n]
         int[] prefix=new int[len];
-        for (int i=0;i<len;i++) {
-            prefix[i] = 1;
-            ans[i] = makeAbbr(dict.get(i), 1); // make abbreviation for each string
-        }
-        for (int i=0;i<len;i++) {
+        Arrays.fill(prefix,1);
+        for (int i=0; i<len; i++) {
             while (true) {
-                HashSet<Integer> set=new HashSet<>();
+                Set<Integer> set=new HashSet<>();
                 for (int j=i+1;j<len;j++) {
                     if (ans[j].equals(ans[i])) set.add(j); // check all strings with the same abbreviation
                 }
@@ -48,17 +42,25 @@ public class LC527WordAbbreviation {
         return Arrays.asList(ans);
     }
 
+    // Get abbreviations for all strings with prefix length 1.
+    private String[] getAbbreviations(List<String> dict) {
+        String[] ans=new String[dict.size()];
+        for (int i=0; i<dict.size(); i++) {
+            ans[i] = makeAbbr(dict.get(i), 1); // make abbreviation for each string
+        }
+        return ans;
+    }
     private String makeAbbr(String s, int k) {
-        if (k >= s.length() - 2) return s;
+        if (k >= s.length() - 2) return s;             // s:"internal"  k:3
         StringBuilder builder=new StringBuilder();
-        builder.append(s.substring(0, k));
-        builder.append(s.length()-1-k);
-        builder.append(s.charAt(s.length()-1));
+        builder.append(s.substring(0, k));            // k:3 -> "int"          k:5 -> "inter"
+        builder.append(s.length()-1-k);               //     -> "int4"             -> "inter2"
+        builder.append(s.charAt(s.length()-1));       //     -> "int4l"            -> "inter2l"
         return builder.toString();
     }
 
     public static void main(String[] args) {
         LC527WordAbbreviation wordAbbreviation = new LC527WordAbbreviation();
-        System.out.println(wordAbbreviation.wordsAbbreviation(Arrays.asList("like", "god", "internal", "me", "internet", "interval", "intension", "face", "intrusion")));
+        System.out.println(wordAbbreviation.wordsAbbreviation(Arrays.asList("like", "god", "internal", "me", "internet", "interval", "intension", "face", "intrusion"))); //[l2e, god, internal, me, i6t, interval, inte4n, f2e, intr4n]
     }
 }

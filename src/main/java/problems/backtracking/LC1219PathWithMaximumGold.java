@@ -43,6 +43,7 @@ package main.java.problems.backtracking;
  * More: https://leetcode.com/tag/backtracking/
  */
 public class LC1219PathWithMaximumGold {
+
     public int getMaximumGold(int[][] grid) {
         int result=0;
         int rows = grid.length;
@@ -53,20 +54,24 @@ public class LC1219PathWithMaximumGold {
         return result;
     }
     private int dfs(int[][] grid, int r, int c) {
-        if(grid[r][c]==0) return 0;
-        int rows = grid.length;
-        int cols = grid[0].length;
+        if(!valid(r,c,grid)) return 0;
         int result=0;
         int temp=grid[r][c];
         grid[r][c]=0;
-        if(r > 0) result = Math.max(result, temp + dfs(grid,r-1, c));
-        if(c > 0) result = Math.max(result, temp + dfs(grid,r,c-1));
-        if(r < rows-1) result = Math.max(result, temp + dfs(grid,r+1, c));
-        if(c < cols-1) result = Math.max(result, temp + dfs(grid, r,c+1));
+        result = Math.max(result, temp + dfs(grid,r-1, c));
+        result = Math.max(result, temp + dfs(grid,r,c-1));
+        result = Math.max(result, temp + dfs(grid,r+1, c));
+        result = Math.max(result, temp + dfs(grid, r,c+1));
         grid[r][c] = temp; // restore value
         return result;
     }
-
+    private boolean valid(int r, int c, int[][] grid) {
+        int rows = grid.length-1;
+        int cols = grid[0].length-1;
+        if(r<0 || r> rows || c<0 || c>cols || grid[r][c] == 0)
+            return false;
+        return true;
+    }
     public static void main(String[] args) {
         int[][] grid = new int[][] {
                 {0,6,0},
@@ -74,6 +79,6 @@ public class LC1219PathWithMaximumGold {
                 {0,9,0}
         };
         LC1219PathWithMaximumGold pathWithMaximumGold = new LC1219PathWithMaximumGold();
-        System.out.println(pathWithMaximumGold.getMaximumGold(grid));
+        System.out.println(pathWithMaximumGold.getMaximumGold(grid)); //24
     }
 }

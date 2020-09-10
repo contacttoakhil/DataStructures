@@ -1,9 +1,6 @@
 package main.java.problems.others;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /***
  * Given a collection of intervals, merge all overlapping intervals.
@@ -24,34 +21,83 @@ import java.util.List;
 public class LC56MergeIntervals {
 
     public List<Interval> merge(List<Interval> intervals) {
-        if(intervals == null || intervals.size()<=1){
-            return intervals;
-        }
-
-        Collections.sort(intervals, Comparator.comparing((Interval itl)->itl.start));
-
+        if(intervals == null || intervals.isEmpty() || intervals.size()<=1) return intervals;
+        Collections.sort(intervals, Comparator.comparing((Interval i) -> i.start));
         List<Interval> result = new ArrayList<>();
-        Interval t = intervals.get(0);
-
-        for(int i=1; i<intervals.size(); i++){
-            Interval c = intervals.get(i);
-            if(c.start <= t.end){
-                t.end = Math.max(t.end, c.end);
-            }else{
-                result.add(t);
-                t = c;
+        Interval prev = intervals.get(0);
+        for (int i = 1; i < intervals.size(); i++) {
+            Interval curr = intervals.get(i);
+            if(curr.start <= prev.end)
+                prev.end = Math.max(prev.end, curr.end);
+            else {
+                result.add(prev);
+                prev = curr;
             }
         }
-
-        result.add(t);
-
+        result.add(prev);
         return result;
+    }
+
+    public List<Interval> union(List<Interval> intervals){
+        return merge(intervals);
+    }
+
+    public List<Interval> intersection(List<Interval> intervals){
+        if(intervals == null || intervals.isEmpty()) return intervals;
+        Collections.sort(intervals, Comparator.comparing((Interval i) -> i.start));
+        LinkedList<Interval> result = new LinkedList<>();
+        Interval prev = intervals.get(0);
+        for(int i = 1; i < intervals.size(); i++){
+            Interval curr = intervals.get(i);
+            if(curr.start < prev.end) {
+                Interval intersection = new Interval(Math.max(prev.start, curr.start), Math.min(prev.end, curr.end));
+                if(!result.isEmpty() && intersection.start < result.peekLast().end){
+                    Interval last = result.pollLast();
+                    intersection.start = last.start;
+                    intersection.end = Math.max(last.end, intersection.end);
+                }
+                result.add(intersection);
+            }
+            prev = new Interval(Math.max(prev.start, curr.start), Math.max(prev.end, curr.end));
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        LC56MergeIntervals mergeIntervals = new LC56MergeIntervals();
+        List<Interval> list = Arrays.asList(new Interval(1,10),new Interval(2,6),new Interval(9,12),new Interval(14,16),new Interval(16,17));
+        System.out.println(mergeIntervals.union(copyList(list)));               //[ [1,12], [14,17] ]
+        System.out.println(mergeIntervals.intersection(copyList(list)));        //[ [2,6], [9,10] ]
+
+        List<Interval> list2 = Arrays.asList(new Interval(1,10),new Interval(2,6),new Interval(7,12),new Interval(9,13), new Interval(15,18),new Interval(16,20));
+        System.out.println(mergeIntervals.union(copyList(list2)));               //[ [1,13], [15,20] ]
+        System.out.println(mergeIntervals.intersection(copyList(list2)));        //[ [2,6], [7,12], [16,18] ]
+
+        List<Interval> list3 = Arrays.asList(new Interval(1,10),new Interval(2,6),new Interval(3,7),new Interval(4,8));
+        System.out.println(mergeIntervals.union(copyList(list3)));               //[ [1,10]]
+        System.out.println(mergeIntervals.intersection(copyList(list3)));        //[ [2,8]]
+    }
+
+    private static List<Interval> copyList(List<Interval> list) {
+        List<Interval> copy  = new ArrayList<>();
+        for(Interval it : list) {
+            copy.add(new Interval(it.start, it.end));
+        }
+        return copy;
     }
 }
 
 class Interval {
     int start;
     int end;
-    Interval() { start = 0; end = 0; }
+    Interval() { this(0,0); }
     Interval(int s, int e) { start = s; end = e; }
- }
+
+    @Override
+    public String toString() {
+        return "Interval{" +
+                "start=" + start +
+                ", end=" + end +
+                '}';
+    }
+}

@@ -1,6 +1,7 @@
 package main.java.problems.trees;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /***
@@ -9,39 +10,40 @@ import java.util.List;
  * For example, the word sequence ["ball","area","lead","lady"] forms a word square because each word reads the same both horizontally and vertically.
  */
 public class LC425WordSquares {
-    public List<List<String>> wordSquares(String[] words) {
-        List<List<String>> ans = new ArrayList<>();
-        if (words == null || words.length == 0)
-            return ans;
-        int len = words[0].length();
-        Trie trie = new Trie(words);
-        List<String> ansBuilder = new ArrayList<>();
-        for (String w : words) {
-            ansBuilder.add(w);
-            search(len, trie, ans, ansBuilder);
-            ansBuilder.remove(ansBuilder.size() - 1);
-        }
 
-        return ans;
+    private Trie trie = null;
+    private List<List<String>> result = new ArrayList<>();
+
+    public List<List<String>> wordSquares(String[] words) {
+        if (words == null || words.length == 0)
+            return result;
+        int len = words[0].length();
+        trie = new Trie(words);
+        for (String w : words)
+            search(len, new ArrayList<>(Collections.singletonList(w)));
+        return result;
     }
 
-    private void search(int len, Trie tr, List<List<String>> ans,
-                        List<String> ansBuilder) {
-        if (ansBuilder.size() == len) {
-            ans.add(new ArrayList<>(ansBuilder));
+    private void search(int len, List<String> temp) {
+        if (temp.size() == len) {
+            result.add(new ArrayList<>(temp));
             return;
         }
-
-        int idx = ansBuilder.size();
+        int idx = temp.size();
         StringBuilder prefixBuilder = new StringBuilder();
-        for (String s : ansBuilder)
+        for (String s : temp)
             prefixBuilder.append(s.charAt(idx));
-        List<String> startWith = tr.findByPrefix(prefixBuilder.toString());
+        List<String> startWith = trie.findByPrefix(prefixBuilder.toString());
         for (String sw : startWith) {
-            ansBuilder.add(sw);
-            search(len, tr, ans, ansBuilder);
-            ansBuilder.remove(ansBuilder.size() - 1);
+            temp.add(sw);
+            search(len, temp);
+            temp.remove(temp.size() - 1);
         }
+    }
+
+    public static void main(String[] args) {
+        LC425WordSquares wordSquares = new LC425WordSquares();
+        System.out.println(wordSquares.wordSquares(new String[]{"ball","area","lead","lady"})); //["ball","area","lead","lady"]
     }
 }
 
@@ -54,6 +56,7 @@ class TrieNode {
         children = new TrieNode[26];
     }
 }
+
 class Trie {
     TrieNode root;
 

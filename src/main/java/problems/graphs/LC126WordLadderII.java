@@ -42,7 +42,74 @@ import java.util.*;
  */
 public class LC126WordLadderII {
 
-    private Map<String,List<String>> parentsMap = new HashMap<>();    // dot -> dog then entry would be {dog,[dot]}
+
+    private Set<String> dict;
+    private List<List<String>> result = new ArrayList<>();
+    private Map<String, ArrayList<String>> nodeNeighbors = new HashMap<>();// Neighbors for every node
+    private Map<String, Integer> distance = new HashMap<>();// Distance of every node from the start node
+
+    public List<List<String>> findLadders(String start, String end, List<String> wordList) {
+        dict = new HashSet<>(wordList); dict.add(start);
+        for (String word : dict)
+            nodeNeighbors.put(word, new ArrayList<>());
+        bfs(start, end);
+        dfs(start, end, new ArrayList<>());
+        return result;
+    }
+
+    // Use BFS to find the shortest distance between start and end, tracing the distance of crossing nodes from start node to end node, and store node's next level neighbors to HashMap;
+    private void bfs(String start, String end) {
+        Queue<String> queue = new LinkedList<String>();
+        queue.offer(start);
+        distance.put(start, 0);
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            boolean foundEnd = false;
+            for (int i=0; i<size; i++) {
+                String current = queue.poll();
+                for(String neighbor : getNeighbors(current)){
+                    nodeNeighbors.get(current).add(neighbor);
+                    if(distance.containsKey(neighbor)) continue;                // neighbor visited then continue
+                    distance.put(neighbor, distance.get(current) + 1);
+                    if(end.equals(neighbor)) foundEnd = true;
+                    else queue.offer(neighbor);
+                }
+                if(foundEnd) break;
+            }
+        }
+    }
+
+    private List<String> getNeighbors(String word) {
+        char[] wordArray = word.toCharArray();
+        List<String> output = new ArrayList<>();
+        for (char ch ='a'; ch <= 'z'; ch++) {
+            for (int idx = 0; idx < word.length() ; idx++) {
+                if(wordArray[idx] == ch) continue;
+                var old = wordArray[idx];
+                wordArray[idx] = ch;
+                if(dict.contains(String.valueOf(wordArray))) output.add(String.valueOf(wordArray));
+                wordArray[idx] = old;
+            }
+        }
+        return output;
+    }
+
+    // DFS: output all paths with the shortest distance.
+    private void dfs(String start, String end, List<String> temp) {
+        temp.add(start);
+        if(end.equals(start))
+            result.add(new ArrayList<>(temp));
+        else
+        {
+            for (String neighbor : getNeighbors(start)) {
+                if(distance.get(neighbor) == distance.get(start) + 1)
+                    dfs(neighbor, end, temp);
+            }
+        }
+        temp.remove(temp.size()-1);
+    }
+
+    /*private Map<String,List<String>> parentsMap = new HashMap<>();    // dot -> dog then entry would be {dog,[dot]}
     private List<List<String>> results;
 
     public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
@@ -78,7 +145,7 @@ public class LC126WordLadderII {
         return results;
     }
 
-    /*
+    *//*
        Can step become equal to ladder.get(new_word) ? Yes in that case we update key in parentsMap
        hit-> hot-> dot, lot -> dog, log -> cog
        When processing dog we will traverse:
@@ -93,7 +160,7 @@ public class LC126WordLadderII {
                     // Do not insert the same word inside the queue twice. Otherwise it gets TLE.
 
 
-     */
+     *//*
     private Map<String, Integer> initDistanceMap(List<String> wordList, String beginWord) {
         Map<String,Integer> distanceMap = new HashMap<>();
         for (String string:wordList)
@@ -114,14 +181,14 @@ public class LC126WordLadderII {
             for (String s: parentsMap.get(word))
                 backTrace(s,start,list);
         list.remove(0);
-    }
+    }*/
 
     public static void main(String[] args) {
         LC126WordLadderII wordLadderII = new LC126WordLadderII();
         List<List<String>> result1 = wordLadderII.findLadders("hit","cog",Arrays.asList("hot","dot","dog","lot","log","cog"));
-        System.out.println(result1);
+        System.out.println(result1);   // [[hit, hot, dot, dog, cog], [hit, hot, lot, log, cog]]
         List<List<String>> result2 = wordLadderII.findLadders("red","tax",Arrays.asList("ted","tex","red","tax","tad","den","rex","pee"));
-        System.out.println(result2);
+        System.out.println(result2);  // [red, ted, tad, tax], [red, ted, tex, tax], [red, rex, tex, tax]]
     }
 }
 

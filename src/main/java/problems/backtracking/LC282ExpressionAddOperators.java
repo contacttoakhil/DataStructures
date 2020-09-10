@@ -51,34 +51,26 @@ public class LC282ExpressionAddOperators {
     private List<String> result = new ArrayList<>();
 
     public List<String> addOperators(String num, int target) {
-        backtrack(new StringBuilder(), num.toCharArray(), 0, target, 0, 0);
+        if(num == null || num.length() == 0) return result;
+        helper("", num, target, 0, 0, 0);
         return result;
-
     }
-    // DFS with backtracking
-    private void backtrack(StringBuilder temp, char[] input, int pos, int target, long prev, long multi) {
-        if(pos == input.length) {
-            if(target == prev)
-                result.add(temp.toString());
+    public void helper(String path, String num, int target, int pos, long eval, long multed){
+        if(pos == num.length()){
+            if(target == eval)
+                result.add(path);
             return;
         }
-        long curr = 0;
-        for(int i = pos; i < input.length; i++) {
-            if(input[pos] == '0' && i != pos) break;
-            curr = 10 * curr + input[i] - '0';      // get digit (single or multiple e.g. 1 or 12 or 123).
-            if(curr > Integer.MAX_VALUE) break;
-            int len = temp.length();
-            if(pos == 0) {
-                backtrack(temp.append(curr), input, i + 1, target, curr, curr);
-                temp.setLength(len);
+        for(int i = pos; i < num.length(); i++){
+            if(i != pos && num.charAt(pos) == '0') break;
+            long cur = Long.parseLong(num.substring(pos, i + 1));
+            if(pos == 0){
+                helper(path + cur, num, target, i + 1, cur, cur);
                 continue;
             }
-            backtrack(temp.append("+").append(curr), input, i + 1, target, prev + curr, curr);
-            temp.setLength(len);
-            backtrack(temp.append("-").append(curr), input, i + 1, target, prev - curr, -curr);
-            temp.setLength(len);
-            backtrack(temp.append("*").append(curr), input, i + 1, target, prev - multi + multi * curr, multi * curr);
-            temp.setLength(len);
+            helper(path + "+" + cur, num, target, i + 1, eval + cur , cur);
+            helper(path + "-" + cur, num, target, i + 1, eval - cur, -cur);
+            helper(path + "*" + cur, num, target, i + 1, eval - multed + multed * cur, multed * cur );
         }
     }
 

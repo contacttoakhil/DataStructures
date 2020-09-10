@@ -47,14 +47,8 @@ public class LC354RussianDollEnvelopes {
     }
 
     private void sortEnvelopes(int[][] envelopes) {
-        Arrays.sort(envelopes, new Comparator<int[]>(){     // width ascending and height descending.
-            public int compare(int[] arr1, int[] arr2){
-                if(arr1[0] == arr2[0])
-                    return arr2[1] - arr1[1];
-                else
-                    return arr1[0] - arr2[0];
-            }
-        });
+        // width arr[0] ascending  and height arr[1] descending
+        Arrays.sort(envelopes, (arr1, arr2) -> (arr1[0] == arr2[0]) ? arr2[1] - arr1[1] : arr1[0] - arr2[0]);
     }
 
     public static void main(String[] args) {
@@ -65,6 +59,6 @@ public class LC354RussianDollEnvelopes {
                 {2, 3}
         };
         LC354RussianDollEnvelopes russianDollEnvelopes = new LC354RussianDollEnvelopes();
-        System.out.println(russianDollEnvelopes.maxEnvelopes(envelopes));
+        System.out.println(russianDollEnvelopes.maxEnvelopes(envelopes));   // 3
     }
 }

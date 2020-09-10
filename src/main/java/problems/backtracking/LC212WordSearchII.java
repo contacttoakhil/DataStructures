@@ -9,60 +9,55 @@ import java.util.List;
  */
 public class LC212WordSearchII {
 
-    private TrieNode root;
+    private TrieNode root = new TrieNode();
     private List<String> res = new ArrayList<>();
+    private char[][] board = null;
 
     public List<String> findWords(char[][] board, String[] words) {
-        if(board == null || board.length == 0)
-            return res;
-        root = new TrieNode();
-        for(String word : words)
-            insert(word);
-        StringBuilder sb = new StringBuilder();  // try assemble word
-        for(int i = 0; i < board.length; i++) {
-            for(int j = 0; j < board[0].length; j++) {
-                search(sb, root, board, i, j);
-            }
-        }
+        TrieNode root = buildTrie(words);
+        this.board = board;
+        for (int r = 0; r < board.length; r++)
+            for (int c = 0; c < board[0].length; c++)
+                dfs (r, c, root);
         return res;
     }
 
-    private void insert(String word) {
-        TrieNode node = root;
-        for(char c: word.toCharArray()){
-            if(node.children[c-'a']==null){
-                node.children[c-'a']= new TrieNode();
+    public void dfs(int r, int c, TrieNode node) {
+        if(invalid(r,c,node)) return;
+        char ch = board[r][c];
+        node = node.children[ch - 'a'];
+        if (node.word != null) {   // found one
+            res.add(node.word);
+            node.word = null;     // de-duplicate
+        }
+        board[r][c] = '#';
+        dfs(r - 1, c ,node);
+        dfs(r, c - 1, node);
+        dfs(r + 1, c, node);
+        dfs(r, c + 1, node);
+        board[r][c] = ch;
+    }
+
+    private TrieNode buildTrie(String[] words) {
+        for (String word : words) {
+            TrieNode node = root;
+            for(char c: word.toCharArray()){
+                if(node.children[c-'a']==null){
+                    node.children[c-'a']= new TrieNode();
+                }
+                node = node.children[c-'a'];
             }
-            node = node.children[c-'a'];
+            node.word = word;
         }
-        node.isWord = true;
+        return root;
     }
 
-    private void search(StringBuilder sb, TrieNode node, char[][] board, int r, int c) {
-        if(invalidCoordinates(board, r, c) || board[r][c] == '#')
-            return;
-        char temp = board[r][c];
-        TrieNode curRoot = node.children[temp - 'a'];    // set node here for DFS
-        if(curRoot == null)
-            return;
-        sb.append(temp);
-        if(curRoot.isWord == true) {
-            curRoot.isWord = false;
-            res.add(sb.toString());
-        }
-        board[r][c] = '#';          // mark visited cell to '#'
-        search(sb, curRoot, board, r + 1, c);
-        search(sb, curRoot, board, r - 1, c);
-        search(sb, curRoot, board, r, c + 1);
-        search(sb, curRoot, board, r, c - 1);
-        sb.setLength(sb.length() - 1);
-        board[r][c] = temp;            // backtracking
-    }
-
-    private boolean invalidCoordinates(char[][] board, int r, int c) {
-        int rows = board.length;
-        int cols = board[0].length;
-        return (r<0 || r>=rows || c<0 || c>=cols) ? true : false;
+    private boolean invalid(int r, int c, TrieNode node) {
+        int rows = board.length-1;
+        int cols = board[0].length-1;
+        if(r<0 || r> rows || c<0 || c>cols || board[r][c] == '#' || node.children[board[r][c] - 'a'] == null)
+            return true;
+        return false;
     }
 
     public static void main(String[] args) {
@@ -77,6 +72,6 @@ public class LC212WordSearchII {
     }
 }
 class TrieNode {
-    public boolean isWord;
+    public String word;
     public TrieNode[] children = new TrieNode[26];
 }

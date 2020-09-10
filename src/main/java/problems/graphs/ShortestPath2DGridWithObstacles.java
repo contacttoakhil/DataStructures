@@ -13,6 +13,7 @@ public class ShortestPath2DGridWithObstacles {
 
     public int compute(Position start, Position end) {
         boolean[][] visited = initializeVisited(start);
+        int[][] dirs = {{1,0}, {0,1}, {-1,0}, {0,-1}};
         Queue<Position> queue = new LinkedList<>();
         queue.add(start);
         visited[start.r][start.c] = true;
@@ -21,24 +22,20 @@ public class ShortestPath2DGridWithObstacles {
             pathPositions.add(p);
             if(p.r == end.r && p.c == end.c)                                      // found destination?
                 return p.dist;
-            if(p.r > 0 && !visited[p.r -1][p.c]) {                                // move up from current pos: [r,c] -> [r-1,c]?
-                queue.add(new Position(p.r -1, p.c, p.dist+1, p));
-                visited[p.r -1][p.c] = true;
-            }
-            if(p.r < grid.length-1 && !visited[p.r +1][p.c]) {                   // moving down
-                queue.add(new Position(p.r +1, p.c, p.dist+1, p));
-                visited[p.r +1][p.c] = true;
-            }
-            if(p.c > 0 && !visited[p.r][p.c -1]) {                              // move left
-                queue.add(new Position(p.r, p.c -1, p.dist+1, p));
-                visited[p.r][p.c -1] = true;
-            }
-            if(p.c < grid[0].length-1 && !visited[p.r][p.c +1]) {               // moving right
-                queue.add(new Position(p.r, p.c +1, p.dist+1, p));
-                visited[p.r][p.c +1] = true;
+            for(int[] dir : dirs) {             // left, right, up and down
+                int nr = p.r + dir[0];
+                int nc = p.c + dir[1];
+                if(valid(nr,nc) && !visited[nr][nc]) {
+                    queue.add(new Position(nr, nc, p.dist + 1, p));
+                    visited[nr][nc] = true;
+                }
             }
         }
         return -1;
+    }
+
+    private boolean valid(int r, int c){
+        return r >= 0 && c >= 0 && r < grid.length && c < grid[0].length;
     }
 
     private boolean[][] initializeVisited(Position start) {
@@ -81,6 +78,8 @@ public class ShortestPath2DGridWithObstacles {
         ShortestPath2DGridWithObstacles shortestPath2DGridWithObstacles = new ShortestPath2DGridWithObstacles(grid);
         System.out.println(shortestPath2DGridWithObstacles.compute(new Position(0,3), new Position(3,0)));
         shortestPath2DGridWithObstacles.printPathPositions();
+        //6
+        //[r=0, c=3][r=1, c=3][r=2, c=3][r=3, c=3][r=3, c=2][r=3, c=1][r=3, c=0]
     }
 }
 class Position

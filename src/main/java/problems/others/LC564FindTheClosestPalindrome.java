@@ -1,5 +1,9 @@
 package main.java.problems.others;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /***
  * Given an integer n, find the closest integer (not including itself), which is a palindrome.
  *
@@ -13,9 +17,80 @@ package main.java.problems.others;
  * If there is a tie, return the smaller one as answer.
  *
  * ref: https://leetcode.com/problems/find-the-closest-palindrome/discuss/147949/Logical-Thinking-with-Java-Code-Beats-98.80
+ *
+ *
+ * Solution:
+ * Let's build a list of candidate answers for which the final answer must be one of those candidates. Afterwards, choosing from these candidates is straightforward.
+ *
+ * If the final answer has the same number of digits as the input string S, then the answer must be the middle digits + (-1, 0, or 1) flipped into a palindrome. For example, 23456 had middle part 234, and 233,
+ * 234, 235 flipped into a palindrome yields 23332, 23432, 23532. Given that we know the number of digits, the prefix 235 (for example) uniquely determines the corresponding palindrome 23532, so all palindromes with
+ * larger prefix like 23732 are strictly farther away from S than 23532 >= S.
+ *
+ * If the final answer has a different number of digits, it must be of the form 999....999 or 1000...0001, as any palindrome smaller than 99....99 or bigger than 100....001 will be farther away from S.
  */
 public class LC564FindTheClosestPalindrome {
+
     public String nearestPalindromic(String n) {
+        if(n.length()==1) return String.valueOf(Integer.parseInt(n)-1);
+        int halflen = (n.length()+1)/2;
+        long half = Long.parseLong(n.substring(0,halflen));
+
+        List<Long> candidates = new ArrayList<>();
+        candidates.add(getAllNine(n.length()));
+        candidates.add(getAllNine(n.length()-1));
+        candidates.add(getOneZero(n.length()));
+        candidates.add(getOneZero(n.length()+1));
+
+        getcandidates(candidates,half,n.length());
+        long dif = Long.MAX_VALUE;
+        long r = Long.parseLong(n);
+        String res = "";
+        Collections.sort(candidates);
+        for(Long ele:candidates){
+            if(ele == r){
+                continue;
+            }
+            if(dif>Math.abs(ele-r)){
+                dif = Math.abs(ele-r);
+                res = String.valueOf(ele);
+            }
+        }
+        return res;
+    }
+
+    public void getcandidates(List<Long> ans,long m,int len){
+        List<Long> reg = new ArrayList<>();
+        reg.add(m);
+        reg.add(m-1);
+        reg.add(m+1);
+        for(Long ele : reg){
+            if(len%2==0){
+                String str = String.valueOf(ele);
+                str+=new StringBuilder(str).reverse().toString();
+                ans.add(Long.parseLong(str));
+            }else{
+                String str = String.valueOf(ele);
+                StringBuilder sb = new StringBuilder(str.substring(0,str.length()-1));
+                str = str + sb.reverse().toString();
+                ans.add(Long.parseLong(str));
+            }
+        }
+    }
+
+    //999....999
+    public Long getAllNine(int n){
+        String str = "";
+        for(int i=0; i<n; i++)
+            str += '9';
+        return Long.parseLong(str);
+    }
+
+    // 1000...0001
+    public Long getOneZero(int n){
+        return (long)Math.pow(10,n-1)+1;
+    }
+
+    public String nearestPalindromic2(String n) {
         String result = handleSpecialCases(n);
         if(!"".equals(result)) return result;
         long nVal = Long.parseLong(n);

@@ -41,7 +41,6 @@ public class LC269AlienDictionary {
         Map<Character, Set<Character>> graph = new HashMap<>();
         int[] inDegree = new int[26];
         buildGraph(words, graph, inDegree);
-
         String order = topologicalSort(graph, inDegree);
         return order.length() == graph.size() ? order : "";
     }

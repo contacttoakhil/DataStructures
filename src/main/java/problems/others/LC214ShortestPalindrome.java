@@ -16,18 +16,17 @@ package main.java.problems.others;
  */
 public class LC214ShortestPalindrome {
     public String shortestPalindrome(String s) {
-        int i=0;
-        int j=s.length()-1;
-        while(j>=0){
-            if(s.charAt(i)==s.charAt(j))
-                i++;
-            j--;
+        int left=0, right = s.length()-1;
+        while(right >= 0){
+            if(s.charAt(left) == s.charAt(right))
+                left++;
+            right--;
         }
-        if(i==s.length())
+        if(left==s.length())
             return s;
-        String suffix = s.substring(i);
+        String suffix = s.substring(left);
         String prefix = new StringBuilder(suffix).reverse().toString();
-        String mid = shortestPalindrome(s.substring(0, i));
+        String mid = shortestPalindrome(s.substring(0, left));
         return prefix+mid+suffix;
     }
 

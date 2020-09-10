@@ -2,8 +2,38 @@ package main.java.problems.divideAndConquer;
 
 import main.java.problems.list.ListNode;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
+
 public class LC23MergeKSortedLists {
 
+    private static int compare(ListNode o1, ListNode o2) {
+        if (o1.val < o2.val)
+            return -1;
+        else if (o1.val == o2.val)
+            return 0;
+        else
+            return 1;
+    }
+
+    public ListNode mergeKListsUsingPQ(ListNode[] lists) {
+        if (lists == null || lists.length == 0) return null;
+        PriorityQueue<ListNode> queue= new PriorityQueue<>(lists.length, LC23MergeKSortedLists::compare);
+        ListNode head = new ListNode(0);
+        ListNode start = head;
+        for (ListNode node:lists)
+            if (node!=null)
+                queue.add(node);
+        while (!queue.isEmpty()){
+            start.next = queue.poll();
+            start = start.next;
+            if (start.next != null)
+                queue.add(start.next);
+        }
+        return head.next;
+    }
     public ListNode mergeKLists(ListNode[] lists) {
         return divideAndConquer(lists, 0, lists.length - 1);
     }
@@ -57,3 +87,4 @@ public class LC23MergeKSortedLists {
     }
 
 }
+

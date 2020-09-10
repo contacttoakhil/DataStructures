@@ -23,37 +23,29 @@ package main.java.problems.slidingWindow;
  * The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
  */
 public class LC395LongestSubstringAtLeastKDistinctCharacters {
+
     public int longestSubstring(String s, int k) {
-        int max = 0;
-
-        for (int numUniqueTarget = 1; numUniqueTarget <= 26; numUniqueTarget++)
-            max = Math.max(max, longestSubstringWithNUniqueChars(s, k, numUniqueTarget));
-
-        return max;
-    }
-
-    private int longestSubstringWithNUniqueChars(String s, int k, int numUniqueTarget) {
-        int[] map = new int[128];
-        int numUnique = 0; // counter 1
-        int numNoLessThanK = 0; // counter 2
-        int begin = 0, right = 0;
-        int max = 0;
-
-        while (right < s.length()) {
-            if (map[s.charAt(right)]++ == 0) numUnique++; // increment map[c] after this statement
-            if (map[s.charAt(right++)] == k) numNoLessThanK++; // inc end after this statement
-
-            while (numUnique > numUniqueTarget) {
-                if (map[s.charAt(begin)]-- == k) numNoLessThanK--; // decrement map[c] after this statement
-                if (map[s.charAt(begin++)] == 0) numUnique--; // inc begin after this statement
-            }
-
-            // if we found a string where the number of unique chars equals our target
-            // and all those chars are repeated at least K times then update max
-            if (numUnique == numUniqueTarget && numUnique == numNoLessThanK)
-                max = Math.max(right - begin, max);
+        int n = s.length();
+        if (n==0 || n<k) return 0;
+        if (k==1) return n;
+        int[] counts = new int[26];
+        for (char c: s.toCharArray()) {
+            counts[c-'a']++;
         }
-
-        return max;
+        char badchar = 0;
+        for (int i=0; i<26; i++) {
+            if (counts[i]>0 && counts[i]<k) {
+                badchar = (char)(i+'a');
+                break;
+            }
+        }
+        // split the string by any character that doesn't appear for k times.
+        if (badchar==0) return n;
+        String[] subs = s.split(badchar+"");
+        int res = 0;
+        for (String sub:subs) {
+            res = Math.max(res, longestSubstring(sub,k));
+        }
+        return res;
     }
 }

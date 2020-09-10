@@ -13,31 +13,24 @@ import java.util.List;
 
 public class LC320GeneralizedAbbreviation {
 
-    List<String> output = new ArrayList<String>();
-
+    List<String> result = new ArrayList<String>();
     public List<String> generateAbbreviations(String word) {
-        backtrack(new StringBuilder(), word,0, 0);
-        return output;
+        backtrack("", word, 0, 0);
+        return result;
     }
-
-    public void backtrack(StringBuilder sb, String input, int pos, int count) {
-        int len = sb.length();
-        if(pos == input.length()) {
-            if(count > 0) sb.append(count);
-            output.add(sb.toString());
+    private void backtrack(String temp, String word, int pos, int count){
+        if(pos == word.length()){
+            if(count > 0) temp = temp + count;
+            result.add(temp);
+            return;
         }
-        else
-        {
-            backtrack(sb, input,pos + 1, count + 1);               // abbr c[i]
-            if(count > 0) sb.append(count);                            // not abbr c[i]
-            backtrack(sb.append(input.charAt(pos)), input, pos + 1, 0);
-        }
-        sb.setLength(len);
+        backtrack(temp, word, pos + 1, count + 1);
+        backtrack(temp +(count>0?count:"") + word.charAt(pos), word, pos+1, 0);
     }
 
     public static void main(String[] args) {
         LC320GeneralizedAbbreviation generalizedAbbreviation = new LC320GeneralizedAbbreviation();
-        List<String> result2 = generalizedAbbreviation.generateAbbreviations("word");
+        List<String> result2 = generalizedAbbreviation.generateAbbreviations("word"); // [4, 3d, 2r1, 2rd, 1o2, 1o1d, 1or1, 1ord, w3, w2d, w1r1, w1rd, wo2, wo1d, wor1, word]
         System.out.println(result2);
     }
 }

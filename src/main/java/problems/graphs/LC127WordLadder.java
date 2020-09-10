@@ -52,25 +52,26 @@ import java.util.*;
 public class LC127WordLadder {
 
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Set<String> dict = new HashSet<>(wordList), qs = new HashSet<>(), qe = new HashSet<>(), vis = new HashSet<>();
-        qs.add(beginWord);
-        if (dict.contains(endWord)) qe.add(endWord); // all transformed words must be in dict (including endWord)
-        for (int len = 2; !qs.isEmpty(); len++) {
-            Set<String> nq = new HashSet<>();
-            for (String w : qs) {
+        Set<String> dict = new HashSet<>(wordList), start = new HashSet<>(), end = new HashSet<>();
+        if (!dict.contains(endWord)) return 0;
+        start.add(beginWord); end.add(endWord);
+        Set<String> visited = new HashSet<>();
+        for (int len = 2; !start.isEmpty(); len++) {
+            Set<String> next = new HashSet<>();
+            for (String w : start) {
                 for (int j = 0; j < w.length(); j++) {
                     char[] ch = w.toCharArray();
                     for (char c = 'a'; c <= 'z'; c++) {
                         if (c == w.charAt(j)) continue; // beginWord and endWord not the same, so bypass itself
                         ch[j] = c;
                         String nb = String.valueOf(ch);
-                        if (qe.contains(nb)) return len; // meet from two ends
-                        if (dict.contains(nb) && vis.add(nb)) nq.add(nb); // not meet yet, vis is safe to use
+                        if (end.contains(nb)) return len; // meet from two ends
+                        if (dict.contains(nb) && visited.add(nb)) next.add(nb); // not meet yet, vis is safe to use
                     }
                 }
             }
-            qs = (nq.size() < qe.size()) ? nq : qe; // switch to small one to traverse from other end
-            qe = (qs == nq) ? qe : nq;
+            start = (next.size() < end.size()) ? next : end; // switch to small one to traverse from other end
+            end = (start == next) ? end : next;
         }
         return 0;
     }
@@ -81,6 +82,7 @@ public class LC127WordLadder {
     }
 }
 
+/*
 class Pair<K,V> {
     private K key;
     private V value;
@@ -95,4 +97,4 @@ class Pair<K,V> {
     public V getValue() {
         return value;
     }
-}
+}*/

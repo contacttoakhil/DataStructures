@@ -35,15 +35,13 @@ public class LC148SortLinkedList {
 
     //get the list partition point
     private ListNode getFirstEnd(ListNode head){
-        ListNode p1 = head;
-        ListNode p2 = head;
-        while(p1!=null && p2!=null){
-            if(p2.next==null||p2.next.next==null){
-                return p1;
-            }
-
-            p1 = p1.next;
-            p2 = p2.next.next;
+        ListNode slow = head;
+        ListNode fast = head;
+        while(slow!=null && fast!=null){
+            if(fast.next==null||fast.next.next==null)
+                return slow;
+            slow = slow.next;
+            fast = fast.next.next;
         }
 
         return head;

@@ -59,7 +59,7 @@ public class LC239SlidingWindowMaximum {
 
     public static void main(String[] args) {
         LC239SlidingWindowMaximum swm = new LC239SlidingWindowMaximum();
-        int[] result = swm.maxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7}, 3);
-        System.out.println(Arrays.toString(result));
+        System.out.println(Arrays.toString(swm.maxSlidingWindow(new int[]{1,3,4,5,3,6,7}, 3)));
+        //System.out.println(Arrays.toString(swm.maxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7}, 3)));
     }
 }
