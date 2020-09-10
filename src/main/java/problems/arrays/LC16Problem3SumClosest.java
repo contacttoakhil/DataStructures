@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class LC15Problem3SumClosest {
+public class LC16Problem3SumClosest {
     public int threeSumClosest(int[] nums, int target) {
         int min = Integer.MAX_VALUE;
         int result = 0;

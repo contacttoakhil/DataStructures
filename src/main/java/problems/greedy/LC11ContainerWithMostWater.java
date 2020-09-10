@@ -18,7 +18,7 @@ package main.java.problems.greedy;
  * area formed between them, update maxareamaxarea and move the pointer pointing to the shorter line towards the other end by one step.
  *
  */
-public class LC07ContainerWithMostWater {
+public class LC11ContainerWithMostWater {
 
     public int maxArea(int[] height) {
         int l = 0, r = height.length - 1, maxArea = 0;
@@ -34,7 +34,7 @@ public class LC07ContainerWithMostWater {
     }
 
     public static void main(String[] args) {
-        LC07ContainerWithMostWater containerWithMostWater = new LC07ContainerWithMostWater();
+        LC11ContainerWithMostWater containerWithMostWater = new LC11ContainerWithMostWater();
         System.out.println(containerWithMostWater.maxArea(new int[] {1,8,6,2,5,4,8,3,7}));
     }
 }
