@@ -1,5 +1,4 @@
-# DataStructures
-## Commonly used Data Structures and LeetCode problems implemented in Java
+# DataStructures and LeetCode Problems
 
 ######  Please give this repo a :star: if you like it. 
 
