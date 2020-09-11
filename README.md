@@ -36,3 +36,21 @@ LeetCode Problems
 28 | Implement strstr() | Easy |
 29 | Divide Two Integers | Medium | 
 30 | Substring with Concatenation of All Words | Hard | 
+31 | Next Permutation | Medium | [Solution](src/main/java/problems/others/LC31NextPermutation.java)
+32 | Longest Valid Parentheses | Hard | [Solution](src/main/java/problems/stack/LC32LongestValidParantheses.java)
+33 | Search in Rotated Sorted Array | Hard | [Solution](src/main/java/problems/divideAndConquer/LC33SearchInRotatedArray.java)
+34 | Search for a Range | Medium | 
+35 | Search Insert Position | Easy | 
+36 | Valid Sudoku | Easy | [Solution](src/main/java/problems/arrays/LC36ValidSudoku.java)
+38 | Count and Say | Easy | [Solution](src/main/java/problems/others/LC38CountAndSay.java)
+39 | Combination Sum | Medium | [Solution](src/main/java/problems/backtracking/LC39CombinationSum.java)
+40 | Combination Sum II | Medium | [Solution](src/main/java/problems/backtracking/LC40CombinationSumUnique.java)
+41 | First Missing Positive | Hard | 
+42 | Trapping Rain Water | Hard | [Solution](src/main/java/problems/arrays/LC42TrappingRainWater.java)
+43 | Multiply Strings | Medium | 
+45 | Jump Game II | Hard | 
+46 | Permutations | Medium | [Solution](src/main/java/problems/backtracking/LC46PermutationsForInputArray.java)
+47 | Permutations II | Medium | [Solution](src/main/java/problems/backtracking/LC47PermutationsForInputArrayUnique.java)
+48 | Rotate Image | Medium | [Solution](src/main/java/problems/arrays/LC48RotateImage.java)
+49 | Group Anagrams | Medium | [Solution](src/main/java/problems/arrays/LC49GroupAnagrams.java)
+50 | Pow(x,n) | Medium | 
